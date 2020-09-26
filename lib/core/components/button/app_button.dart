@@ -1,21 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AuthButton extends StatelessWidget {
+class AppButton extends StatelessWidget {
   final String title;
   final bool isLoading;
   final VoidCallback onTap;
+  final Color color;
+  final Color textColor;
 
-  const AuthButton({Key key, this.title, this.isLoading = false, this.onTap})
+  const AppButton(
+      {Key key,
+      this.title,
+      this.isLoading = false,
+      this.onTap,
+      this.color = Colors.indigo,
+      this.textColor = Colors.white})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).primaryColor,
+      color: color,
       borderRadius: BorderRadius.circular(8),
       elevation: 8,
-      shadowColor: Colors.indigo.shade100,
+      shadowColor: color.withOpacity(.4),
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
@@ -44,7 +52,7 @@ class AuthButton extends StatelessWidget {
                   '$title',
                   style: TextStyle(
                     fontSize: 18,
-                    color: Theme.of(context).accentColor,
+                    color: textColor,
                   ),
                 ),
               ],
