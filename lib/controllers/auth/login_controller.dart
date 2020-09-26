@@ -1,10 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
+  TextEditingController _emailController;
+  TextEditingController _passwordController;
+
+  TextEditingController get emailController => _emailController;
+  TextEditingController get passwordController => _passwordController;
+
   @override
   void onInit() {
-    // called immediately after the widget is allocated memory
-    //fetchApi();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
     super.onInit();
   }
 
@@ -17,8 +24,12 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
-    // called just before the Controller is deleted from memory
-    //closeStream();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.onClose();
+  }
+
+  void submit() {
+    print(_emailController.text);
   }
 }
