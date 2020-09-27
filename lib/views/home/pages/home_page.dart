@@ -6,74 +6,81 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SingleChildScrollView(
-          padding: EdgeInsets.only(top: 12, left: 12, right: 12),
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              StoryItem(isAdd: true, didView: true),
-              StoryItem(didView: true),
-              StoryItem(didView: true),
-              StoryItem(),
-              StoryItem(),
-              StoryItem(),
-              StoryItem(),
-              StoryItem(),
-            ],
-          ),
-        ),
         Expanded(
           child: SingleChildScrollView(
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.only(top: 12, bottom: 12),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: UserCard(),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: UserCard(),
-                    ),
-                  ],
+                SingleChildScrollView(
+                  padding: EdgeInsets.only(bottom: 12, left: 12, right: 12),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      StoryItem(isAdd: true, didView: true),
+                      StoryItem(didView: true),
+                      StoryItem(didView: true),
+                      StoryItem(),
+                      StoryItem(),
+                      StoryItem(),
+                      StoryItem(),
+                      StoryItem(),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: UserCard(),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: UserCard(),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: UserCard(),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: UserCard(),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: UserCard(),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: UserCard(),
-                    ),
-                  ],
-                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12, right: 12),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: UserCard(),
+                          ),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: UserCard(),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: UserCard(),
+                          ),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: UserCard(),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: UserCard(),
+                          ),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: UserCard(),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 12),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: UserCard(),
+                          ),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: UserCard(),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

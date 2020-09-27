@@ -22,7 +22,7 @@ class App extends StatelessWidget {
         accentColor: Colors.white,
         fontFamily: 'Lato'
       ),
-      home: HomeNavigator(),
+      home: LoginPage(),
     );
   }
 }
