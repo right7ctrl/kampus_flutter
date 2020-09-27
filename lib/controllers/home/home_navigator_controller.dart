@@ -1,7 +1,7 @@
-import 'package:chat_app_flutter/controllers/home/pages/chats_page.dart';
-import 'package:chat_app_flutter/controllers/home/pages/home_page.dart';
-import 'package:chat_app_flutter/controllers/home/pages/notifications_page.dart';
-import 'package:chat_app_flutter/controllers/home/pages/profile_page.dart';
+import 'package:chat_app_flutter/views/home/pages/chats_page.dart';
+import 'package:chat_app_flutter/views/home/pages/home_page.dart';
+import 'package:chat_app_flutter/views/home/pages/notifications_page.dart';
+import 'package:chat_app_flutter/views/home/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 
@@ -16,7 +16,11 @@ class HomeNavigatorController extends GetxController {
   }
 
   List<Map<String, dynamic>> bottomBarItems = [
-    {"title": "Anasayfa", "icon": Icons.home, "page": HomePage()},
+    {
+      "title": "Anasayfa",
+      "icon": Icons.home,
+      "page": HomePage(),
+    },
     {
       "title": "Sohbetler",
       "icon": Icons.chat_bubble_outline,
@@ -27,6 +31,10 @@ class HomeNavigatorController extends GetxController {
       "icon": Icons.notifications,
       "page": NotificationsPage()
     },
-    {"title": "Profil", "icon": Icons.person_outline, "page": ProfilePage()},
+    {
+      "title": "Profil",
+      "icon": Icons.person_outline,
+      "page": ProfilePage(),
+    },
   ];
 }
