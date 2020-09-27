@@ -1,13 +1,15 @@
+import 'package:chat_app_flutter/core/components/button/app_button.dart';
+import 'package:chat_app_flutter/core/init/network_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
-  bool _isLoading = false;
+  var isLoading = 0.obs;
   TextEditingController _emailController;
   TextEditingController _passwordController;
   GlobalKey<FormState> _formKey;
+  var data;
 
-  bool get isLoading => _isLoading;
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
   GlobalKey<FormState> get formKey => _formKey;
@@ -35,17 +37,19 @@ class RegisterController extends GetxController {
     super.onClose();
   }
 
-  void login() {
+  void login() async {
     if (isFormValid) {
-      print(_emailController.text);
+      isLoading.value = 1;
+      await NetworkManager.instance.dio
+          .get('https://jsonplaceholder.typicode.com/users')
+          .then((res) {
+        data = res.data;
+      });
+      isLoading.value = 0;
     } else {
       print('qqqq');
     }
   }
 
-  set setLoading(bool val) {
-    if (val == _isLoading) return;
-    _isLoading = val;
-    update();
-  }
+ 
 }

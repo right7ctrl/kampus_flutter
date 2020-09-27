@@ -1,6 +1,7 @@
 import 'package:chat_app_flutter/controllers/auth/login_controller.dart';
 import 'package:chat_app_flutter/core/components/button/app_button.dart';
 import 'package:chat_app_flutter/core/components/textfield/auth_textformfield.dart';
+import 'package:chat_app_flutter/views/auth/register_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,9 +45,11 @@ class LoginPage extends GetView<LoginController> {
                       padding:
                           EdgeInsets.symmetric(horizontal: Get.width * .07),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Text('Giriş Yap', style: TextStyle(fontSize: 18),),
+                          SizedBox(height: 16),
                           Form(
                             key: controller.formKey,
                             child: Column(
@@ -91,11 +94,16 @@ class LoginPage extends GetView<LoginController> {
                                       fontSize: 16),
                                 ),
                                 SizedBox(height: 32),
-                                Text(
-                                  'Hesabın yok mu? Kaydol',
-                                  style: TextStyle(
-                                      color: Colors.grey.shade500,
-                                      fontSize: 16),
+                                InkWell(
+                                  onTap: () {
+                                    Get.offAll(RegisterPage());
+                                  },
+                                  child: Text(
+                                    'Hesabın yok mu? Kaydol',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade500,
+                                        fontSize: 16),
+                                  ),
                                 ),
                               ],
                             ),

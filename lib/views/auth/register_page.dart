@@ -1,183 +1,115 @@
 import 'package:chat_app_flutter/controllers/auth/login_controller.dart';
 import 'package:chat_app_flutter/controllers/auth/register_controller.dart';
 import 'package:chat_app_flutter/core/components/button/app_button.dart';
+import 'package:chat_app_flutter/core/components/textfield/auth_textformfield.dart';
+import 'package:chat_app_flutter/views/auth/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<RegisterController>(
-      // specify type as Controller
-      init: RegisterController(), // intialize with the Controller
-      builder: (value) => Scaffold(
-          backgroundColor: Theme.of(context).primaryColor,
-          body: Column(
-            children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Container(
-                      height: Get.height * .3,
-                      color: Colors.transparent,
-                      child: Center(
-                        child: Text(
-                          'LOGO',
-                          style: TextStyle(
-                            color: Theme.of(context).accentColor,
-                            fontSize: 22,
-                          ),
+    Get.put(RegisterController());
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              physics: ClampingScrollPhysics(),
+              child: Column(
+                children: [
+                  Container(
+                    height: Get.height * .3,
+                    color: Colors.transparent,
+                    child: Center(
+                      child: Text(
+                        'LOGO',
+                        style: TextStyle(
+                          color: Theme.of(context).accentColor,
+                          fontSize: 22,
                         ),
                       ),
                     ),
-                    Container(
-                      height: Get.height * .7,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24),
-                        ),
+                  ),
+                  Container(
+                    height: Get.height * .7,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
                       ),
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: Get.width * .07),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Form(
-                              key: value.formKey,
-                              child: Column(
-                                children: [
-                                  TextFormField(
-                                    controller: value.emailController,
-                                    validator: (String val) {
-                                      if (val.isEmpty) return 'Zorunlu alan';
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: 'Mail Adresi',
-                                      suffixIcon: Icon(Icons.email),
-                                      errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                          width: 1.5,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: Colors.black26,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 16),
-                                  TextFormField(
-                                    controller: value.passwordController,
-                                    validator: (String val) {
-                                      if (val.isEmpty) return 'Zorunlu alan';
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: 'Şifre',
-                                      suffixIcon: Icon(Icons.lock),
-                                      errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                          width: 1.5,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: Colors.black26,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 16),
-                                  TextFormField(
-                                    controller: value.passwordController,
-                                    validator: (String val) {
-                                      if (val.isEmpty) return 'Zorunlu alan';
-                                      return null;
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: 'Şifre Tekrar',
-                                      suffixIcon: Icon(Icons.lock),
-                                      errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                          width: 1.5,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(4),
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: Colors.black26,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 32,
-                                  ),
-                                  AppButton(
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: Get.width * .07),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Form(
+                            key: controller.formKey,
+                            child: Column(
+                              children: [
+                                AuthTextFormField(
+                                  placeholder: 'E-Posta Adresi',
+                                  controller: controller.emailController,
+                                  suffixIcon: Icons.email,
+                                  validator: (String val) {
+                                    if (val.isEmpty) return 'Zorunlu alan';
+                                    return null;
+                                  },
+                                ),
+                                SizedBox(height: 16),
+                                AuthTextFormField(
+                                  placeholder: 'Şifre',
+                                  controller: controller.passwordController,
+                                  suffixIcon: Icons.lock,
+                                  validator: (String val) {
+                                    if (val.isEmpty) return 'Zorunlu alan';
+                                    return null;
+                                  },
+                                ),
+                                SizedBox(
+                                  height: 32,
+                                ),
+                                GetX<RegisterController>(
+                                  init: RegisterController(),
+                                  builder: (a) => AppButton(
                                     title: 'Giriş Yap',
-                                    isLoading: value.isLoading,
+                                    isLoading: a.isLoading.value == 1,
                                     onTap: () {
-                                      value.login();
+                                      controller.login();
                                     },
                                   ),
-                                  SizedBox(height: 32),
-                                  Text(
-                                    'Şifremi unuttum',
+                                ),
+                                SizedBox(height: 32),
+                                InkWell(
+                                  onTap: () {
+                                    Get.offAll(LoginPage());
+                                  },
+                                  child: Text(
+                                    'Hesabın var mı? Giriş Yap',
                                     style: TextStyle(
                                         color: Colors.grey.shade500,
                                         fontSize: 16),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              )
-            ],
-          )),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
