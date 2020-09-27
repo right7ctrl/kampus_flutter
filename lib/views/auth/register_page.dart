@@ -1,4 +1,3 @@
-import 'package:chat_app_flutter/controllers/auth/login_controller.dart';
 import 'package:chat_app_flutter/controllers/auth/register_controller.dart';
 import 'package:chat_app_flutter/core/components/button/app_button.dart';
 import 'package:chat_app_flutter/core/components/textfield/auth_textformfield.dart';
@@ -72,13 +71,21 @@ class RegisterPage extends GetView<RegisterController> {
                                     return null;
                                   },
                                 ),
-                                SizedBox(
-                                  height: 32,
+                                SizedBox(height: 16),
+                                AuthTextFormField(
+                                  placeholder: 'Şifre Tekrar',
+                                  controller: controller.passwordController,
+                                  suffixIcon: Icons.lock,
+                                  validator: (String val) {
+                                    if (val.isEmpty) return 'Zorunlu alan';
+                                    return null;
+                                  },
                                 ),
+                                SizedBox(height: 32),
                                 GetX<RegisterController>(
                                   init: RegisterController(),
                                   builder: (a) => AppButton(
-                                    title: 'Giriş Yap',
+                                    title: 'Kayıt Ol',
                                     isLoading: a.isLoading.value == 1,
                                     onTap: () {
                                       controller.login();

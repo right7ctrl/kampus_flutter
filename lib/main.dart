@@ -1,4 +1,5 @@
 import 'package:chat_app_flutter/views/auth/login_page.dart';
+import 'package:chat_app_flutter/views/home/home_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +22,7 @@ class App extends StatelessWidget {
         accentColor: Colors.white,
         fontFamily: 'Lato'
       ),
-      home: LoginPage(),
+      home: HomeNavigator(),
     );
   }
 }

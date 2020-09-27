@@ -48,7 +48,10 @@ class LoginPage extends GetView<LoginController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Giriş Yap', style: TextStyle(fontSize: 18),),
+                          Text(
+                            'Giriş Yap',
+                            style: TextStyle(fontSize: 18),
+                          ),
                           SizedBox(height: 16),
                           Form(
                             key: controller.formKey,
