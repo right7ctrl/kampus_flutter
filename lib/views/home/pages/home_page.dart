@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -5,6 +6,22 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SingleChildScrollView(
+          padding: EdgeInsets.only(top: 12, left: 12, right: 12),
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              StoryItem(isAdd: true, didView: true),
+              StoryItem(didView: true),
+              StoryItem(didView: true),
+              StoryItem(),
+              StoryItem(),
+              StoryItem(),
+              StoryItem(),
+              StoryItem(),
+            ],
+          ),
+        ),
         Expanded(
           child: SingleChildScrollView(
             padding: EdgeInsets.all(12),
@@ -160,5 +177,133 @@ class UserCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class StoryItem extends StatelessWidget {
+  final bool isAdd;
+  final bool didView;
+
+  const StoryItem({Key key, this.isAdd = false, this.didView = false})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    if (isAdd) {
+      return Container(
+        margin: EdgeInsets.only(right: 12),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                color: didView ? Colors.grey.shade300 : null,
+                gradient: didView
+                    ? null
+                    : LinearGradient(colors: [
+                        Colors.amber,
+                        Colors.indigo,
+                        Colors.blue,
+                        Colors.green
+                      ], stops: [
+                        0,
+                        .25,
+                        .50,
+                        1
+                      ], begin: Alignment.topCenter),
+                borderRadius: BorderRadius.circular(32),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(32),
+                ),
+                padding: EdgeInsets.all(2),
+                child: Material(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(24),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(24),
+                    onTap: () {},
+                    child: Container(
+                      height: 46,
+                      width: 46,
+                      child: Center(
+                        child: Icon(
+                          Icons.add,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              'Ekle',
+              style: TextStyle(color: Colors.grey.shade400),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Container(
+        margin: EdgeInsets.only(right: 12),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                color: didView ? Colors.grey.shade300 : null,
+                gradient: didView
+                    ? null
+                    : LinearGradient(colors: [
+                        Color.fromRGBO(245, 133, 41, 1),
+                        Color.fromRGBO(254, 218, 119, 1),
+                        Color.fromRGBO(221, 42, 123, 1),
+                        Color.fromRGBO(129, 52, 175, 1),
+                        Color.fromRGBO(81, 91, 212, 1),
+                      ], stops: [
+                        .2,
+                        .4,
+                        .6,
+                        .8,
+                        1
+                      ], begin: Alignment.topCenter),
+                borderRadius: BorderRadius.circular(32),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(32),
+                ),
+                padding: EdgeInsets.all(2),
+                child: Material(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(24),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(24),
+                    onTap: () {},
+                    child: Container(
+                      height: 48,
+                      width: 48,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(32),
+                        child: Image.network(
+                            'https://i.insider.com/5cdf0a1393a152734e0fc973?width=1021&format=jpeg',
+                            height: 72,
+                            fit: BoxFit.cover),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              'Alex',
+              style: TextStyle(color: Colors.grey.shade400),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }

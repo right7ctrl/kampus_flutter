@@ -8,6 +8,7 @@ class HomeNavigator extends GetView<HomeNavigatorController> {
     Get.put(HomeNavigatorController());
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: GetBuilder<HomeNavigatorController>(
           init: HomeNavigatorController(),
           id: 'title_builder',
@@ -15,6 +16,17 @@ class HomeNavigator extends GetView<HomeNavigatorController> {
             '${c.bottomBarItems.elementAt(c.currentIndex)['title']}',
           ),
         ),
+        leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+        actions: [
+          IconButton(icon: Icon(Icons.add), onPressed: () {}),
+          PopupMenuButton(itemBuilder: (context) {
+            return [
+              PopupMenuItem(child: Text('Bişeyler')),
+              PopupMenuItem(child: Text('Bişeyler')),
+              PopupMenuItem(child: Text('Bişeyler')),
+            ];
+          }),
+        ],
       ),
       bottomNavigationBar: GetBuilder<HomeNavigatorController>(
         id: 'bottom_bar_builder',
