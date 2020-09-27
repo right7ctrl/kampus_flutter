@@ -7,10 +7,14 @@ void main() {
 }
 
 class App extends StatelessWidget {
+
+  
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      smartManagement: SmartManagement.full,
       theme: ThemeData(
         primaryColor: Colors.indigo,
         primaryColorLight: Colors.indigo.shade200,

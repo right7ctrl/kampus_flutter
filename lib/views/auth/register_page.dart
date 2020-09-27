@@ -1,6 +1,6 @@
 import 'package:chat_app_flutter/controllers/auth/login_controller.dart';
 import 'package:chat_app_flutter/controllers/auth/register_controller.dart';
-import 'package:chat_app_flutter/core/components/button/auth_button.dart';
+import 'package:chat_app_flutter/core/components/button/app_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -116,7 +116,7 @@ class RegisterPage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                      SizedBox(height: 16),
+                                  SizedBox(height: 16),
                                   TextFormField(
                                     controller: value.passwordController,
                                     validator: (String val) {
@@ -152,7 +152,7 @@ class RegisterPage extends StatelessWidget {
                                   SizedBox(
                                     height: 32,
                                   ),
-                                  AuthButton(
+                                  AppButton(
                                     title: 'Giriş Yap',
                                     isLoading: value.isLoading,
                                     onTap: () {
