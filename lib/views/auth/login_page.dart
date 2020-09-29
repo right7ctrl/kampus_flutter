@@ -24,12 +24,18 @@ class LoginPage extends GetView<LoginController> {
                     height: Get.height * .3,
                     color: Colors.transparent,
                     child: Center(
-                      child: Text(
-                        'LOGO',
-                        style: TextStyle(
-                          color: Theme.of(context).accentColor,
-                          fontSize: 22,
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.school,
+                              size: 100, color: Theme.of(context).accentColor),
+                          Text(
+                            'Kampüs',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Theme.of(context).accentColor),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -51,7 +57,7 @@ class LoginPage extends GetView<LoginController> {
                         children: [
                           Text(
                             'Giriş Yap',
-                            style: TextStyle(fontSize: 18),
+                            style: TextStyle(fontSize: 24),
                           ),
                           SizedBox(height: 16),
                           Form(
@@ -64,16 +70,20 @@ class LoginPage extends GetView<LoginController> {
                                   suffixIcon: Icons.email,
                                   validator: (String val) {
                                     if (val.isEmpty) return 'Zorunlu alan';
+                                    //TODO: add mail validator
                                     return null;
                                   },
                                 ),
                                 SizedBox(height: 16),
                                 AuthTextFormField(
+                                  obscureText: true,
                                   placeholder: 'Şifre',
                                   controller: controller.passwordController,
                                   suffixIcon: Icons.lock,
                                   validator: (String val) {
                                     if (val.isEmpty) return 'Zorunlu alan';
+                                    if (val.length < 8)
+                                      return 'Minimum 8 karakter';
                                     return null;
                                   },
                                 ),
@@ -84,9 +94,9 @@ class LoginPage extends GetView<LoginController> {
                                   init: LoginController(),
                                   builder: (a) => AppButton(
                                     title: 'Giriş Yap',
-                                    isLoading: a.isLoading.value == 1,
+                                    isLoading: a.isLoading.value,
                                     onTap: () {
-                                      Get.to(HomeNavigator());
+                                      a.login();
                                     },
                                   ),
                                 ),

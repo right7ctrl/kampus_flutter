@@ -24,12 +24,18 @@ class RegisterPage extends GetView<RegisterController> {
                     height: Get.height * .3,
                     color: Colors.transparent,
                     child: Center(
-                      child: Text(
-                        'LOGO',
-                        style: TextStyle(
-                          color: Theme.of(context).accentColor,
-                          fontSize: 22,
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.school,
+                              size: 100, color: Theme.of(context).accentColor),
+                          Text(
+                            'Kampüs',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Theme.of(context).accentColor),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -52,7 +58,13 @@ class RegisterPage extends GetView<RegisterController> {
                           Form(
                             key: controller.formKey,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Text(
+                                  'Kaydol',
+                                  style: TextStyle(fontSize: 24),
+                                ),
+                                SizedBox(height: 16),
                                 AuthTextFormField(
                                   placeholder: 'E-Posta Adresi',
                                   controller: controller.emailController,
@@ -64,20 +76,32 @@ class RegisterPage extends GetView<RegisterController> {
                                 ),
                                 SizedBox(height: 16),
                                 AuthTextFormField(
+                                  obscureText: true,
                                   placeholder: 'Şifre',
                                   controller: controller.passwordController,
                                   suffixIcon: Icons.lock,
                                   validator: (String val) {
+                                    if (val !=
+                                        controller.rePasswordController.text)
+                                      return 'Şifreler eşleşmiyor!';
+                                    if (val.length < 8)
+                                      return 'Minimum 8 karakter';
                                     if (val.isEmpty) return 'Zorunlu alan';
                                     return null;
                                   },
                                 ),
                                 SizedBox(height: 16),
                                 AuthTextFormField(
+                                  obscureText: true,
                                   placeholder: 'Şifre Tekrar',
-                                  controller: controller.passwordController,
+                                  controller: controller.rePasswordController,
                                   suffixIcon: Icons.lock,
                                   validator: (String val) {
+                                    if (val !=
+                                        controller.passwordController.text)
+                                      return 'Şifreler eşleşmiyor!';
+                                    if (val.length < 8)
+                                      return 'Minimum 8 karakter';
                                     if (val.isEmpty) return 'Zorunlu alan';
                                     return null;
                                   },
@@ -87,9 +111,9 @@ class RegisterPage extends GetView<RegisterController> {
                                   init: RegisterController(),
                                   builder: (a) => AppButton(
                                     title: 'Kayıt Ol',
-                                    isLoading: a.isLoading.value == 1,
+                                    isLoading: a.isLoading.value,
                                     onTap: () {
-                                      Get.to(HomeNavigator());
+                                      controller.register();
                                     },
                                   ),
                                 ),

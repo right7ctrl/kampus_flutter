@@ -1,17 +1,20 @@
 import 'package:chat_app_flutter/core/components/button/app_button.dart';
+import 'package:chat_app_flutter/core/constants.dart';
 import 'package:chat_app_flutter/core/init/network_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
-  var isLoading = 0.obs;
+  RxBool isLoading = false.obs;
   TextEditingController _emailController;
   TextEditingController _passwordController;
+  TextEditingController _rePasswordController;
   GlobalKey<FormState> _formKey;
   var data;
 
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
+  TextEditingController get rePasswordController => _rePasswordController;
   GlobalKey<FormState> get formKey => _formKey;
   bool get isFormValid => _formKey.currentState.validate();
 
@@ -20,6 +23,7 @@ class RegisterController extends GetxController {
     _formKey = GlobalKey<FormState>();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _rePasswordController = TextEditingController();
     super.onInit();
   }
 
@@ -34,22 +38,37 @@ class RegisterController extends GetxController {
   void onClose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _rePasswordController.dispose();
     super.onClose();
   }
 
-  void login() async {
-    if (isFormValid) {
-      isLoading.value = 1;
-      await NetworkManager.instance.dio
-          .get('https://jsonplaceholder.typicode.com/users')
-          .then((res) {
-        data = res.data;
-      });
-      isLoading.value = 0;
-    } else {
-      print('qqqq');
+  void register() async {
+    if (formKey.currentState.validate()) {
+      isLoading.value = true;
+      try {
+        print(isLoading.value);
+        await NetworkManager.instance.dio.post('$API/auth/register', data: {
+          "email": _emailController.text,
+          "password": _passwordController.text
+        }).then((res) {
+          if (res.data['response'] == 1) {
+            //TODO: save usertoken to device && navigate home
+          } else {
+            Get.rawSnackbar(
+              title: 'Hata!',
+              message: res.data['message'] != null && res.data['message'] != ''
+                  ? '${res.data['message']}'
+                  : 'Bir hata oluştu',
+            );
+          }
+        });
+      } catch (e) {
+        Get.rawSnackbar(
+          title: 'Hata!',
+          message: 'Bilinmeyen bir hata oluştu \n$e',
+        );
+      }
+      isLoading.value = false;
     }
   }
-
- 
 }

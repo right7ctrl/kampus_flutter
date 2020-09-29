@@ -1,10 +1,11 @@
-import 'package:chat_app_flutter/core/components/button/app_button.dart';
+import 'package:chat_app_flutter/core/constants.dart';
 import 'package:chat_app_flutter/core/init/network_manager.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  var isLoading = 0.obs;
+  RxBool isLoading = false.obs;
   TextEditingController _emailController;
   TextEditingController _passwordController;
   GlobalKey<FormState> _formKey;
@@ -38,18 +39,29 @@ class LoginController extends GetxController {
   }
 
   void login() async {
-    if (isFormValid) {
-      isLoading.value = 1;
-      await NetworkManager.instance.dio
-          .get('https://jsonplaceholder.typicode.com/users')
-          .then((res) {
-        data = res.data;
-      });
-      isLoading.value = 0;
-    } else {
-      print('qqqq');
+    if (formKey.currentState.validate()) {
+      isLoading.value = true;
+      try {
+        print(isLoading.value);
+        await NetworkManager.instance.dio.post('$API/auth/login', data: {
+          "email": _emailController.text,
+          "password": _passwordController.text
+        }).then((res) {
+          if (res.data['response'] == 1) {
+            //TODO: save usertoken to device && navigate home
+          } else {
+            Get.rawSnackbar(
+              title: 'Hata!',
+              message: res.data['message'] != null && res.data['message'] != ''
+                  ? '${res.data['message']}'
+                  : 'Bir hata oluştu',
+            );
+          }
+        });
+      } catch (e) {
+        print(e);
+      }
+      isLoading.value = false;
     }
   }
-
- 
 }
