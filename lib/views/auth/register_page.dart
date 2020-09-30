@@ -70,6 +70,7 @@ class RegisterPage extends GetView<RegisterController> {
                                   controller: controller.emailController,
                                   suffixIcon: Icons.email,
                                   validator: (String val) {
+                                    //TODO: add mail validator
                                     if (val.isEmpty) return 'Zorunlu alan';
                                     return null;
                                   },

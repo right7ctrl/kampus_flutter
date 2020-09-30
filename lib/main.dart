@@ -1,10 +1,11 @@
 import 'package:chat_app_flutter/core/init/network_manager.dart';
+import 'package:chat_app_flutter/core/init/storage_manager.dart';
 import 'package:chat_app_flutter/views/auth/login_page.dart';
-import 'package:chat_app_flutter/views/home/home_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async {
+  await StorageManager.initPrefs();
   runApp(App());
 }
 
