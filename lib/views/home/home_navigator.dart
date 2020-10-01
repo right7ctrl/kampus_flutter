@@ -1,4 +1,6 @@
 import 'package:chat_app_flutter/controllers/home/home_navigator_controller.dart';
+import 'package:chat_app_flutter/core/init/storage_manager.dart';
+import 'package:chat_app_flutter/views/auth/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +18,6 @@ class HomeNavigator extends GetView<HomeNavigatorController> {
             '${c.bottomBarItems.elementAt(c.currentIndex)['title']}',
           ),
         ),
-        leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
         actions: [
           IconButton(icon: Icon(Icons.add), onPressed: () {}),
           PopupMenuButton(itemBuilder: (context) {
@@ -27,6 +28,21 @@ class HomeNavigator extends GetView<HomeNavigatorController> {
             ];
           }),
         ],
+      ),
+      drawer: Drawer(
+        child: SafeArea(
+          child: Column(
+            children: [
+              ListTile(
+                title: Text('Çıkış'),
+                onTap: () async {
+                  StorageManager.clearUserData();
+                  Get.offAll(LoginPage());
+                },
+              ),
+            ],
+          ),
+        ),
       ),
       bottomNavigationBar: GetBuilder<HomeNavigatorController>(
         id: 'bottom_bar_builder',

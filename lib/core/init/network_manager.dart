@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chat_app_flutter/core/init/storage_manager.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
@@ -36,5 +37,8 @@ class NetworkManager {
     );
   }
 
-  void reqMw(RequestOptions req) {}
+  RequestOptions reqMw(RequestOptions req) {
+    req.headers['Authorization'] = 'Bearer ${StorageManager.getToken()}';
+    return req;
+  }
 }

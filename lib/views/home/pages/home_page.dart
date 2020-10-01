@@ -1,88 +1,43 @@
+import 'package:chat_app_flutter/controllers/home/home_page_controller.dart';
+import 'package:chat_app_flutter/models/user/user_item_model.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Get.put(HomePageController());
     return Column(
       children: [
         Expanded(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.only(top: 12, bottom: 12),
-            child: Column(
-              children: [
-                SingleChildScrollView(
-                  padding: EdgeInsets.only(bottom: 12, left: 12, right: 12),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      StoryItem(isAdd: true, didView: true),
-                      StoryItem(didView: true),
-                      StoryItem(didView: true),
-                      StoryItem(),
-                      StoryItem(),
-                      StoryItem(),
-                      StoryItem(),
-                      StoryItem(),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 12, right: 12),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: UserCard(),
-                          ),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: UserCard(),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 12),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: UserCard(),
-                          ),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: UserCard(),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 12),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: UserCard(),
-                          ),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: UserCard(),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 12),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: UserCard(),
-                          ),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: UserCard(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+          child: GetBuilder<HomePageController>(
+            init: HomePageController(),
+            dispose: (_) => HomePageController(),
+            builder: (controller) {
+              if (controller.hasError.value) {
+                return Text('${controller.errorMessage.value}');
+              } else if (controller.isLoading.value) {
+                return Text('${controller.isLoading.value}');
+              } else {
+                return GridView.builder(
+                  padding: EdgeInsets.all(12),
+                  itemCount: controller?.response?.value?.items?.length ?? 0,
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: .8,
+                      crossAxisCount: 2),
+                  itemBuilder: (context, index) {
+                    var f = controller.response.value.items.elementAt(index);
+                    return UserCard(
+                      user: f,
+                    );
+                  },
+                );
+              }
+            },
           ),
         ),
       ],
@@ -91,6 +46,9 @@ class HomePage extends StatelessWidget {
 }
 
 class UserCard extends StatelessWidget {
+  final UserItemModel user;
+
+  const UserCard({Key key, @required this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -135,7 +93,7 @@ class UserCard extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        'John Wick',
+                        '${user.name}',
                         textAlign: TextAlign.center,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -152,7 +110,7 @@ class UserCard extends StatelessWidget {
                           ),
                           SizedBox(width: 8),
                           Text(
-                            'ERU',
+                            '${user.school}',
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 14, color: Colors.grey),
                           ),

@@ -1,11 +1,9 @@
-import 'package:chat_app_flutter/core/init/network_manager.dart';
-import 'package:chat_app_flutter/core/init/storage_manager.dart';
 import 'package:chat_app_flutter/views/auth/login_page.dart';
+import 'package:chat_app_flutter/views/auth/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() async {
-  await StorageManager.initPrefs();
+void main() {
   runApp(App());
 }
 
@@ -24,7 +22,7 @@ class App extends StatelessWidget {
         accentColor: Colors.white,
         fontFamily: 'Lato'
       ),
-      home: LoginPage(),
+      home: SplashScreen(),
     );
   }
 }

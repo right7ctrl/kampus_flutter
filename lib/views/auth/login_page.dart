@@ -1,6 +1,7 @@
 import 'package:chat_app_flutter/controllers/auth/login_controller.dart';
 import 'package:chat_app_flutter/core/components/button/app_button.dart';
 import 'package:chat_app_flutter/core/components/textfield/auth_textformfield.dart';
+import 'package:chat_app_flutter/core/constants.dart';
 import 'package:chat_app_flutter/views/auth/register_page.dart';
 import 'package:chat_app_flutter/views/home/home_navigator.dart';
 import 'package:flutter/cupertino.dart';
@@ -82,8 +83,8 @@ class LoginPage extends GetView<LoginController> {
                                   suffixIcon: Icons.lock,
                                   validator: (String val) {
                                     if (val.isEmpty) return 'Zorunlu alan';
-                                    if (val.length < 8)
-                                      return 'Minimum 8 karakter';
+                                    if (val.length < PASS_MAX_LEN)
+                                      return 'Minimum $PASS_MAX_LEN karakter';
                                     return null;
                                   },
                                 ),

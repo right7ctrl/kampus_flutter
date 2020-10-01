@@ -1,5 +1,7 @@
 import 'package:chat_app_flutter/core/constants.dart';
 import 'package:chat_app_flutter/core/init/network_manager.dart';
+import 'package:chat_app_flutter/core/init/storage_manager.dart';
+import 'package:chat_app_flutter/views/home/home_navigator.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,8 +49,12 @@ class LoginController extends GetxController {
           "email": _emailController.text,
           "password": _passwordController.text
         }).then((res) {
-          if (res.data['response'] == 1) {
-            //TODO: save usertoken to device && navigate home
+          if (res.data['response'] == 1 &&
+              res.data.containsKey('token') &&
+              res.data['token'] != null &&
+              res.data['token'] != '') {
+            StorageManager.setToken(res.data['token']);
+            Get.offAll(HomeNavigator());
           } else {
             Get.rawSnackbar(
               title: 'Hata!',

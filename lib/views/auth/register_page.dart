@@ -1,6 +1,7 @@
 import 'package:chat_app_flutter/controllers/auth/register_controller.dart';
 import 'package:chat_app_flutter/core/components/button/app_button.dart';
 import 'package:chat_app_flutter/core/components/textfield/auth_textformfield.dart';
+import 'package:chat_app_flutter/core/constants.dart';
 import 'package:chat_app_flutter/views/auth/login_page.dart';
 import 'package:chat_app_flutter/views/home/home_navigator.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,8 +86,8 @@ class RegisterPage extends GetView<RegisterController> {
                                     if (val !=
                                         controller.rePasswordController.text)
                                       return 'Şifreler eşleşmiyor!';
-                                    if (val.length < 8)
-                                      return 'Minimum 8 karakter';
+                                    if (val.length < PASS_MAX_LEN)
+                                      return 'Minimum $PASS_MAX_LEN karakter';
                                     if (val.isEmpty) return 'Zorunlu alan';
                                     return null;
                                   },

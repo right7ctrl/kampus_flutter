@@ -1,6 +1,8 @@
 import 'package:chat_app_flutter/core/components/button/app_button.dart';
 import 'package:chat_app_flutter/core/constants.dart';
 import 'package:chat_app_flutter/core/init/network_manager.dart';
+import 'package:chat_app_flutter/core/init/storage_manager.dart';
+import 'package:chat_app_flutter/views/home/home_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -49,10 +51,15 @@ class RegisterController extends GetxController {
         print(isLoading.value);
         await NetworkManager.instance.dio.post('$API/auth/register', data: {
           "email": _emailController.text,
-          "password": _passwordController.text
+          "password": _passwordController.text,
+          "school": "MEÜ",
+          "username": "${UniqueKey()}",
+          "name": "Test kullanıcı"
         }).then((res) {
           if (res.data['response'] == 1) {
-            //TODO: save usertoken to device && navigate home
+            Get.rawSnackbar(
+                title: 'Başarılı',
+                message: 'Kayıt başarılı, Şimdi giriş yapabilirsiniz.');
           } else {
             Get.rawSnackbar(
               title: 'Hata!',
