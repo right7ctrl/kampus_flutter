@@ -18,7 +18,6 @@ class LoginController extends GetxController {
   GlobalKey<FormState> get formKey => _formKey;
   bool get isFormValid => _formKey.currentState.validate();
 
-
   @override
   void onInit() {
     _formKey = GlobalKey<FormState>();
@@ -65,6 +64,8 @@ class LoginController extends GetxController {
             );
           }
         });
+      } on DioError catch (e) {
+        print(e?.response?.data);
       } catch (e) {
         print(e);
       }

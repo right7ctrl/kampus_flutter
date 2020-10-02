@@ -22,6 +22,7 @@ class HomePageController extends GetxController {
     super.onInit();
   }
 
+
   Future<void> getUserList() async {
     setLoading = true;
     setError = false;

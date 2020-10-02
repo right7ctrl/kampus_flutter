@@ -30,13 +30,6 @@ class RegisterController extends GetxController {
   }
 
   @override
-  void onReady() {
-    // called after the widget is rendered on screen
-    //showIntroDialog();
-    super.onReady();
-  }
-
-  @override
   void onClose() {
     _emailController.dispose();
     _passwordController.dispose();

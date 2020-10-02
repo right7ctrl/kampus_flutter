@@ -29,6 +29,7 @@ class NetworkManager {
   }
 
   void errorMw(DioError err) {
+    print('e: $err');
     if (err?.response?.statusCode == 401) {
       if (Get.currentRoute != 'LoginPage') {
         Get.offAll(LoginPage());
@@ -36,6 +37,20 @@ class NetworkManager {
     } else {
       try {
         if (err?.response?.data != null && err?.response?.data is String) {
+          Map<String, dynamic> data = jsonDecode(err.response.data);
+          if (data != null && data.containsKey('message')) {
+            Get.rawSnackbar(
+              title: 'Hata! (${err?.response?.statusCode})',
+              message: data['message'] != null && data['message'] != ''
+                  ? '${data['message']}'
+                  : 'Bir hata oluştu',
+            );
+          } else {
+            Get.rawSnackbar(
+                title: 'Hata! (${err?.response?.statusCode})',
+                message: 'Bir hata oluştu (else)');
+          }
+        } else {
           Map<String, dynamic> data = jsonDecode(err.response.data);
           if (data != null && data.containsKey('message')) {
             Get.rawSnackbar(
