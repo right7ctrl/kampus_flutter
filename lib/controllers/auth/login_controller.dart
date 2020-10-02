@@ -65,7 +65,12 @@ class LoginController extends GetxController {
             );
           }
         });
-      } catch (e) {
+      } 
+      
+      on DioError catch(e){
+        print(e?.response?.data);
+      }
+      catch (e) {
         print(e);
       }
       isLoading.value = false;
