@@ -1,4 +1,6 @@
 import 'package:chat_app_flutter/controllers/home/home_page_controller.dart';
+import 'package:chat_app_flutter/core/components/error/app_error_widget.dart';
+import 'package:chat_app_flutter/core/components/indicator/app_loading_widget.dart';
 import 'package:chat_app_flutter/models/user/user_item_model.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,6 @@ import 'package:get/get.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Get.put(HomePageController());
     return Column(
       children: [
         Expanded(
@@ -15,14 +16,19 @@ class HomePage extends StatelessWidget {
             init: HomePageController(),
             dispose: (_) => HomePageController(),
             builder: (controller) {
-              if (controller.hasError.value) {
-                return Text('${controller.errorMessage.value}');
-              } else if (controller.isLoading.value) {
-                return Text('${controller.isLoading.value}');
+              if (controller.hasError) {
+                return AppErrorWidget(
+                  error: '${controller.errorMsg}',
+                  onRefresh: () {
+                    controller.getUserList();
+                  },
+                );
+              } else if (controller.isLoading) {
+                return AppLoadingWidget();
               } else {
                 return GridView.builder(
                   padding: EdgeInsets.all(12),
-                  itemCount: controller?.response?.value?.items?.length ?? 0,
+                  itemCount: controller?.res?.items?.length ?? 0,
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisSpacing: 12,
@@ -30,7 +36,7 @@ class HomePage extends StatelessWidget {
                       childAspectRatio: .8,
                       crossAxisCount: 2),
                   itemBuilder: (context, index) {
-                    var f = controller.response.value.items.elementAt(index);
+                    var f = controller.res.items.elementAt(index);
                     return UserCard(
                       user: f,
                     );

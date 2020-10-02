@@ -6,41 +6,46 @@ import 'package:chat_app_flutter/models/list/user_list_model.dart';
 import 'package:get/get.dart';
 
 class HomePageController extends GetxController {
-  RxBool isLoading = true.obs;
-  RxBool hasError = false.obs;
-  RxString errorMessage = ''.obs;
-  Rx<UserListModel> response = UserListModel().obs;
+  bool _isLoading = true;
+  bool _hasError = false;
+  String _errorMessage = '';
+  UserListModel _response;
+
+  bool get isLoading => _isLoading;
+  bool get hasError => _hasError;
+  String get errorMsg => _errorMessage;
+  UserListModel get res => _response;
 
   @override
   void onInit() {
-    print('IIIII');
+    getUserList();
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    print('ZZZ');
-    getUserList();
-    super.onReady();
-  }
-
-  
-
-
   Future<void> getUserList() async {
-    print('QQQQQ');
-    isLoading.value = true;
-    hasError.value = false;
+    setLoading = true;
+    setError = false;
     try {
-      print(isLoading.value);
       await NetworkManager.instance.dio
           .post('$API/list/user', data: {}).then((res) {
-        response.value = UserListModel.fromJson(res.data);
+        _response = UserListModel.fromJson(res.data);
       });
     } catch (e) {
-      hasError.value = true;
-      errorMessage.value = '$e';
+      _errorMessage = '$e';
+      setError = true;
     }
-    isLoading.value = false;
+    setLoading = false;
+  }
+
+  set setLoading(bool val) {
+    if (val == _isLoading) return;
+    _isLoading = val;
+    update();
+  }
+
+  set setError(bool val) {
+    if (val == _hasError) return;
+    _hasError = val;
+    update();
   }
 }
