@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:chat_app_flutter/core/init/storage_manager.dart';
+import 'package:chat_app_flutter/views/auth/login_page.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
@@ -28,26 +29,32 @@ class NetworkManager {
   }
 
   void errorMw(DioError err) {
-    try {
-      if (err?.response?.data != null && err?.response?.data is String) {
-        Map<String, dynamic> data = jsonDecode(err.response.data);
-        if (data != null && data.containsKey('message')) {
-          Get.rawSnackbar(
-            title: 'Hata! (${err?.response?.statusCode})',
-            message: data['message'] != null && data['message'] != ''
-                ? '${data['message']}'
-                : 'Bir hata oluştu',
-          );
-        } else {
-          Get.rawSnackbar(
-              title: 'Hata! (${err?.response?.statusCode})',
-              message: 'Bir hata oluştu (else)');
-        }
+    if (err?.response?.statusCode == 401) {
+      if (Get.currentRoute != 'LoginPage') {
+        Get.offAll(LoginPage());
       }
-    } catch (e) {
-      Get.rawSnackbar(
-          title: 'Hata! (${err?.response?.statusCode})',
-          message: 'Bir hata oluştu ($e)');
+    } else {
+      try {
+        if (err?.response?.data != null && err?.response?.data is String) {
+          Map<String, dynamic> data = jsonDecode(err.response.data);
+          if (data != null && data.containsKey('message')) {
+            Get.rawSnackbar(
+              title: 'Hata! (${err?.response?.statusCode})',
+              message: data['message'] != null && data['message'] != ''
+                  ? '${data['message']}'
+                  : 'Bir hata oluştu',
+            );
+          } else {
+            Get.rawSnackbar(
+                title: 'Hata! (${err?.response?.statusCode})',
+                message: 'Bir hata oluştu (else)');
+          }
+        }
+      } catch (e) {
+        Get.rawSnackbar(
+            title: 'Hata! (${err?.response?.statusCode})',
+            message: 'Bir hata oluştu ($e)');
+      }
     }
   }
 
