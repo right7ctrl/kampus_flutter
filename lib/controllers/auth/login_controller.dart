@@ -18,6 +18,7 @@ class LoginController extends GetxController {
   GlobalKey<FormState> get formKey => _formKey;
   bool get isFormValid => _formKey.currentState.validate();
 
+
   @override
   void onInit() {
     _formKey = GlobalKey<FormState>();

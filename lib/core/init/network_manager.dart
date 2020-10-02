@@ -28,13 +28,27 @@ class NetworkManager {
   }
 
   void errorMw(DioError err) {
-    Get.rawSnackbar(
-      title: 'Hata! (${err?.response?.statusCode})',
-      message: err.response.data['message'] != null &&
-              err.response.data['message'] != ''
-          ? '${err.response.data['message']}'
-          : 'Bir hata oluştu',
-    );
+    try {
+      if (err?.response?.data != null && err?.response?.data is String) {
+        Map<String, dynamic> data = jsonDecode(err.response.data);
+        if (data != null && data.containsKey('message')) {
+          Get.rawSnackbar(
+            title: 'Hata! (${err?.response?.statusCode})',
+            message: data['message'] != null && data['message'] != ''
+                ? '${data['message']}'
+                : 'Bir hata oluştu',
+          );
+        } else {
+          Get.rawSnackbar(
+              title: 'Hata! (${err?.response?.statusCode})',
+              message: 'Bir hata oluştu (else)');
+        }
+      }
+    } catch (e) {
+      Get.rawSnackbar(
+          title: 'Hata! (${err?.response?.statusCode})',
+          message: 'Bir hata oluştu ($e)');
+    }
   }
 
   RequestOptions reqMw(RequestOptions req) {
