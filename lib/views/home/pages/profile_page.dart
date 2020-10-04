@@ -389,7 +389,7 @@ class ProfilePage extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 12),
                       child: Container(
                           padding: EdgeInsets.only(
-                              left: 30, right: 30, top: 12, bottom: 12),
+                              left: 35, right: 35, top: 12, bottom: 12),
                           color: Colors.grey[200],
                           child: Column(
                             children: [
