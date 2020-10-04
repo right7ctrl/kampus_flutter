@@ -384,6 +384,59 @@ class ProfilePage extends StatelessWidget {
                               )
                             ],
                           )),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 12),
+                      child: Container(
+                          padding: EdgeInsets.only(
+                              left: 30, right: 30, top: 12, bottom: 12),
+                          color: Colors.grey[200],
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AutoSizeText("Posted",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600)),
+                                ],
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.only(top: 12, bottom: 12),
+                                  child: Wrap(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.all(12.0),
+                                        child: Container(
+                                            width: width * 0.35,
+                                            height: width * 0.35,
+                                            child: Image(
+                                                image: AssetImage(
+                                                    "assets/arkaplan10.jpg"),fit: BoxFit.cover,)),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(12.0),
+                                        child: Container(
+                                            width: width * 0.35,
+                                            height: width * 0.35,
+                                            child: Image(
+                                                image: AssetImage(
+                                                    "assets/arkaplan10.jpg"),fit: BoxFit.cover,)),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.all(12.0),
+                                        child: Container(
+                                            width: width * 0.35,
+                                            height: width * 0.35,
+                                            child: Image(
+                                                image: AssetImage(
+                                                    "assets/arkaplan10.jpg"),fit: BoxFit.cover,)),
+                                      ),
+                                    ],
+                                  ))
+                            ],
+                          )),
                     )
                   ],
                 ));
