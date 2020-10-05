@@ -21,6 +21,7 @@ class NetworkManager {
     dio.options.contentType = 'application/json';
     dio.interceptors.add(InterceptorsWrapper(
         onError: errorMw,
+        
         onRequest: reqMw,
         onResponse: (Response res) {
           res.data = res.data is String ? jsonDecode(res.data) : res.data;
@@ -67,7 +68,7 @@ class NetworkManager {
         }
       } catch (e) {
         Get.rawSnackbar(
-            title: 'Hata! (${err?.response?.statusCode})',
+            title: 'Hata! (${err?.response?.statusCode})'+err.toString(),
             message: 'Bir hata oluştu ($e)');
       }
     }

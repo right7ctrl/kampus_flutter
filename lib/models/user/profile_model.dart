@@ -22,15 +22,17 @@ class ProfileModel {
 
 class Message {
   String avatar;
+  String name;
   String sId;
   String username;
   String mail;
   String school;
 
-  Message({this.avatar, this.sId, this.username, this.mail, this.school});
+  Message({this.avatar, this.name, this.sId, this.username, this.mail, this.school});
 
   Message.fromJson(Map<String, dynamic> json) {
     avatar = json['avatar'];
+    avatar = json['name'];
     sId = json['_id'];
     username = json['username'];
     mail = json['mail'];
@@ -40,6 +42,7 @@ class Message {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['avatar'] = this.avatar;
+    data['name'] = this.name;
     data['_id'] = this.sId;
     data['username'] = this.username;
     data['mail'] = this.mail;
