@@ -66,7 +66,8 @@ class NetworkManager {
                 message: 'Bir hata oluştu (else)');
           }
         }
-      } catch (e) {
+      } catch (e, s) {
+        print('$e, $s');
         Get.rawSnackbar(
             title: 'Hata! (${err?.response?.statusCode})'+err.toString(),
             message: 'Bir hata oluştu ($e)');

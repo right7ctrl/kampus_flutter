@@ -1,4 +1,4 @@
-const API = "http://10.0.2.2:3005";
+const API = "http://localhost:3005";
 
 //Shared preferences keys
 const TOKEN_KEY = 'userToken';
