@@ -30,11 +30,6 @@ class HomeNavigatorController extends GetxController {
       "title": "Bildirimler",
       "icon": Icons.notifications,
       "page": NotificationsPage()
-    },
-    {
-      "title": "Profil",
-      "icon": Icons.person_outline,
-      "page": ProfilePage(),
-    },
+    }
   ];
 }

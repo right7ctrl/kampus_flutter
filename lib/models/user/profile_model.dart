@@ -1,52 +1,53 @@
 class ProfileModel {
   int response;
-  Message message;
+  List<Items> items;
 
-  ProfileModel({this.response, this.message});
+  ProfileModel({this.response, this.items});
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
     response = json['response'];
-    message =
-        json['message'] != null ? new Message.fromJson(json['message']) : null;
+    if (json['items'] != null) {
+      items = new List<Items>();
+      json['items'].forEach((v) {
+        items.add(new Items.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['response'] = this.response;
-    if (this.message != null) {
-      data['message'] = this.message.toJson();
+    if (this.items != null) {
+      data['items'] = this.items.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Message {
+class Items {
   String avatar;
-  String name;
   String sId;
   String username;
-  String mail;
   String school;
+  String name;
 
-  Message({this.avatar, this.name, this.sId, this.username, this.mail, this.school});
+  Items({this.avatar, this.sId, this.username, this.school, this.name});
 
-  Message.fromJson(Map<String, dynamic> json) {
+  Items.fromJson(Map<String, dynamic> json) {
     avatar = json['avatar'];
-    avatar = json['name'];
     sId = json['_id'];
     username = json['username'];
-    mail = json['mail'];
     school = json['school'];
+    name = json['name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['avatar'] = this.avatar;
-    data['name'] = this.name;
     data['_id'] = this.sId;
     data['username'] = this.username;
-    data['mail'] = this.mail;
     data['school'] = this.school;
+    data['name'] = this.name;
     return data;
   }
 }

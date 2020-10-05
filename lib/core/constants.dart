@@ -1,4 +1,5 @@
 const API = "http://localhost:3005";
+const IO_URL = "http://localhost:3060";
 
 //Shared preferences keys
 const TOKEN_KEY = 'userToken';

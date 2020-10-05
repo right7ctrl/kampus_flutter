@@ -26,6 +26,7 @@ dependencies:
   socket_io_client: ^0.9.11
   auto_size_text: ^2.1.0
   get: ^3.11.1
+  cached_network_image: ^2.3.2+1
   flutter:
     sdk: flutter
 

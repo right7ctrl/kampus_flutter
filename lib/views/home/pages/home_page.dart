@@ -2,6 +2,7 @@ import 'package:chat_app_flutter/controllers/home/home_page_controller.dart';
 import 'package:chat_app_flutter/core/components/error/app_error_widget.dart';
 import 'package:chat_app_flutter/core/components/indicator/app_loading_widget.dart';
 import 'package:chat_app_flutter/models/user/user_item_model.dart';
+import 'package:chat_app_flutter/views/home/pages/profile_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -62,89 +63,93 @@ class UserCard extends StatelessWidget {
       color: Colors.white,
       elevation: 8,
       shadowColor: Colors.black26,
-      child: Container(
-        padding: EdgeInsets.all(8),
-        height: 240,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                InkWell(
-                  onTap: () {},
-                  borderRadius: BorderRadius.circular(32),
-                  child: Padding(
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: () {
+          Get.to(ProfilePage(profileId: user.sId));
+        },
+        child: Container(
+          padding: EdgeInsets.all(8),
+          height: 240,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Icon(Icons.more_horiz, color: Colors.grey.shade400),
-                  ),
-                )
-              ],
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 36,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(72),
-                      child: Image.network(
-                          'https://i.insider.com/5cdf0a1393a152734e0fc973?width=1021&format=jpeg',
-                          height: 72,
-                          fit: BoxFit.cover),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Column(
-                    children: [
-                      Text(
-                        '${user.name}',
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      SizedBox(height: 16),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.school,
-                            size: 16,
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            '${user.school}',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.format_list_numbered,
-                            size: 16,
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            '3/4',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  )
                 ],
               ),
-            )
-          ],
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 36,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(72),
+                        child: Image.network(
+                            'https://i.insider.com/5cdf0a1393a152734e0fc973?width=1021&format=jpeg',
+                            height: 72,
+                            fit: BoxFit.cover),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Column(
+                      children: [
+                        Text(
+                          '${user.name}',
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(height: 16),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.school,
+                              size: 16,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              '${user.school}',
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.format_list_numbered,
+                              size: 16,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              '3/4',
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
