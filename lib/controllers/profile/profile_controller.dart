@@ -24,6 +24,7 @@ class ProfileController extends GetxController {
       await NetworkManager.instance.dio.post('$API/user/showProfile',
           data: {"id": "$profileId"}).then((res) {
         _response = ProfileModel.fromJson(res.data);
+        print(res.data);
       });
     } catch (e, s) {
       print('$e, $s');
@@ -36,12 +37,12 @@ class ProfileController extends GetxController {
   set setLoading(bool val) {
     if (val == _isLoading) return;
     _isLoading = val;
-    update();
+    update(["page"]);
   }
 
   set setError(bool val) {
     if (val == _hasError) return;
     _hasError = val;
-    update();
+    update(["page"]);
   }
 }

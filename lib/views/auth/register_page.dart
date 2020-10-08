@@ -102,8 +102,8 @@ class RegisterPage extends GetView<RegisterController> {
                                     if (val !=
                                         controller.passwordController.text)
                                       return 'Şifreler eşleşmiyor!';
-                                    if (val.length < 8)
-                                      return 'Minimum 8 karakter';
+                                    if (val.length < PASS_MAX_LEN)
+                                      return 'Minimum $PASS_MAX_LEN karakter';
                                     if (val.isEmpty) return 'Zorunlu alan';
                                     return null;
                                   },

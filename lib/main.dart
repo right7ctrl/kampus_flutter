@@ -24,7 +24,7 @@ class App extends StatelessWidget {
         accentColor: Colors.white,
         fontFamily: 'Lato'
       ),
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }

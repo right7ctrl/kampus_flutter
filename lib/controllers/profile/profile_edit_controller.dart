@@ -26,7 +26,7 @@ class ProfileEditController extends GetxController {
 
   @override
   void onInit() {
-    editProfile();
+   
     super.onInit();
   }
 
@@ -35,6 +35,7 @@ class ProfileEditController extends GetxController {
     setError = false;
     try {
       await NetworkManager.instance.dio.post('$API/user/editProfile', data: {
+        //"id":
         "name": nameController.text,
         "username": usernameController.text,
         "school": schoolController.text,
@@ -51,12 +52,12 @@ class ProfileEditController extends GetxController {
   set setLoading(bool val) {
     if (val == _isLoading) return;
     _isLoading = val;
-    update();
+    update(["page"]);
   }
 
   set setError(bool val) {
     if (val == _hasError) return;
     _hasError = val;
-    update();
+    update(["page"]);
   }
 }
