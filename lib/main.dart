@@ -1,4 +1,6 @@
 import 'package:chat_app_flutter/views/auth/splash_screen.dart';
+import 'package:chat_app_flutter/views/home/pages/home_page.dart';
+import 'package:chat_app_flutter/views/profile_edit/profile_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +19,8 @@ class App extends StatelessWidget {
           primaryColorLight: Colors.indigo.shade200,
           accentColor: Colors.white,
           fontFamily: 'Lato'),
-      home: SplashScreen(),
+      ),
+      home: HomePage(),
     );
   }
 }
