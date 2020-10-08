@@ -7,6 +7,7 @@ class SplashController extends GetxController {
   @override
   void onInit() async {
     await StorageManager.initPrefs();
+    
     String _token = StorageManager.getToken();
     await Future.delayed(Duration(milliseconds: 1000), () {
       if (_token != null) {

@@ -1,43 +1,56 @@
-import 'package:chat_app_flutter/views/chat/chat_detail.dart';
+import 'package:chat_app_flutter/controllers/chat/chat_controller.dart';
+import 'package:chat_app_flutter/core/components/error/app_error_widget.dart';
+import 'package:chat_app_flutter/core/components/indicator/app_loading_widget.dart';
+import 'package:chat_app_flutter/models/chat/chat_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChatsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ChatItem(),
-                ChatItem(),
-                ChatItem(),
-                ChatItem(),
-                ChatItem(),
-                ChatItem(),
-                ChatItem(),
-                ChatItem(),
-                ChatItem(),
-                ChatItem(),
-                ChatItem(),
-                ChatItem(),
-              ],
-            ),
-          ),
-        )
-      ],
-    );
+    final _c = Get.put(ChatController());
+
+    return GetBuilder<ChatController>(
+        id: '_page',
+        builder: (controller) {
+          if (controller.hasError) {
+            return AppErrorWidget(
+              error: '${controller.errorMsg}',
+              onRefresh: () {
+                controller.getUserList();
+              },
+            );
+          } else {
+            if (controller.isLoading) {
+              return AppLoadingWidget();
+            } else {
+              if (controller?.res?.items != null) {
+                /* return ListView.builder(
+                  itemBuilder: (context, index) {
+                    return ChatItem(item: controller.res.items);
+                  },
+                  shrinkWrap: true,
+                  itemCount: controller?.res?.items?.length ?? 0,
+                ); */
+              } else {
+                return Text('boş');
+              }
+            }
+          }
+        });
   }
 }
 
 class ChatItem extends StatelessWidget {
+  //final MessageItem item;
+
+  //const ChatItem({Key key, this.item}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        Get.to(ChatDetail());
+        //Get.to(ChatDetail());
       },
       leading: CircleAvatar(
         radius: 24,
@@ -52,7 +65,7 @@ class ChatItem extends StatelessWidget {
         ),
       ),
       title: Text(
-        'Mary Jane',
+        '1231',
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),

@@ -25,7 +25,7 @@ class ProfileEdit extends StatelessWidget {
           } else if (controller.isLoading) {
             return AppLoadingWidget();
           } else {
-            var i = controller.res.message;
+            //ar i = controller.res.message;
 
             Scaffold(
               appBar: AppBar(
@@ -41,26 +41,24 @@ class ProfileEdit extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: ProfileEditTextFormField(
-
-                        placeholder:"name",// i?.name.toString(),
+                        placeholder: "name", // i?.name.toString(),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: ProfileEditTextFormField(
-                        placeholder:"username",// i?.username.toString(),
+                        placeholder: "username", // i?.username.toString(),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: ProfileEditTextFormField(
-                        placeholder: "school",//i?.school.toString(),
+                        placeholder: "school", //i?.school.toString(),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.fromLTRB(30, 12, 30, 12),
                       child: AppButton(
-                        
                         title: "Update",
                       ),
                     ),

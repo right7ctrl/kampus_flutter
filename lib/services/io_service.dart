@@ -27,6 +27,7 @@ class IOService {
 
       try {
         kSocket.on('connect', (data) {
+          print(kToken.sId);
           kSocket.emit('register', '${kToken.sId}');
           kSocket.on('receive_msg', (data) {
             print('socket_receiver: $data');

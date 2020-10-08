@@ -1,8 +1,13 @@
 import 'package:chat_app_flutter/core/components/textfield/auth_textformfield.dart';
+import 'package:chat_app_flutter/models/user/user_item_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatDetail extends StatelessWidget {
+  final UserItemModel user;
+
+  const ChatDetail({Key key, @required this.user}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +21,9 @@ class ChatDetail extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.network(
-                  'https://i.insider.com/5cdf0a1393a152734e0fc973?width=1021&format=jpeg',
+                  user?.avatar != null
+                      ? '${user.avatar}'
+                      : 'https://i.insider.com/5cdf0a1393a152734e0fc973?width=1021&format=jpeg',
                   height: 32,
                   width: 32,
                   fit: BoxFit.cover,
@@ -24,7 +31,7 @@ class ChatDetail extends StatelessWidget {
               ),
             ),
             SizedBox(width: 12),
-            Text('Kelly West'),
+            Text('${user.name}'),
           ],
         ),
         actions: [IconButton(icon: Icon(Icons.more_horiz), onPressed: () {})],
@@ -39,40 +46,6 @@ class ChatDetail extends StatelessWidget {
                 reverse: true,
                 child: Column(
                   children: [
-                    MessageItem(
-                      notMe: true,
-                      message: 'Hello',
-                    ),
-                    MessageItem(
-                      message:
-                          "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                    ),
-                    MessageItem(
-                      notMe: true,
-                      message:
-                          'a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
-                    ),
-                    MessageItem(
-                      notMe: true,
-                      message: 'many variations',
-                    ),
-                    MessageItem(
-                      message:
-                          'Lorem Ipsum is therefore always free from repetition',
-                    ),
-                    MessageItem(
-                      notMe: true,
-                      message:
-                          'sometimes by accident, sometimes on purpose (injected humour and the like)',
-                    ),
-                    MessageItem(
-                      notMe: true,
-                      message: 'haha',
-                    ),
-                    MessageItem(
-                      message:
-                          'Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.',
-                    ),
                     MessageItem(
                       notMe: true,
                       message: 'qweqeqqwe',
