@@ -17,21 +17,16 @@ class ProfileController extends GetxController {
   String get errorMsg => _errorMessage;
   ProfileModel get res => _response;
 
-  @override
-  void onInit() {
-    getProfile();
-    super.onInit();
-  }
-
-  Future<void> getProfile() async {
+  Future<void> getProfile(String profileId) async {
     setLoading = true;
     setError = false;
     try {
       await NetworkManager.instance.dio.post('$API/user/showProfile',
-          data: {"id": "5f664fc49a963c1f74a13bad"}).then((res) {
-        _response=ProfileModel.fromJson(res.data);
+          data: {"id": "$profileId"}).then((res) {
+        _response = ProfileModel.fromJson(res.data);
       });
-    } catch (e) {
+    } catch (e, s) {
+      print('$e, $s');
       _errorMessage = '$e';
       setError = true;
     }

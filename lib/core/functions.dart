@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:chat_app_flutter/models/user/token_model.dart';
+
+TokenModel kToken;
 Map<String, dynamic> parseJwt(String token) {
   if (token != null && token.isNotEmpty && token != '') {
     final parts = token.split('.');

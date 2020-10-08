@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:chat_app_flutter/core/constants.dart';
 import 'package:chat_app_flutter/core/init/network_manager.dart';
 import 'package:chat_app_flutter/models/list/user_list_model.dart';
+import 'package:chat_app_flutter/services/io_service.dart';
 import 'package:get/get.dart';
 
 class HomePageController extends GetxController {
@@ -18,10 +19,10 @@ class HomePageController extends GetxController {
 
   @override
   void onInit() {
+    IOService().connectSocket();
     getUserList();
     super.onInit();
   }
-
 
   Future<void> getUserList() async {
     setLoading = true;
