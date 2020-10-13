@@ -1,4 +1,4 @@
-const API = "http://78.47.144.207:3005";
+const API = "http://localhost:3005";
 const IO_URL = "http://localhost:3060";
 
 //Shared preferences keys

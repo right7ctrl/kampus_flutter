@@ -66,7 +66,7 @@ class UserCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
-          Get.to(ProfilePage(profileId: user.sId));
+          Get.to(ProfilePage(user: user));
         },
         child: Container(
           padding: EdgeInsets.all(8),

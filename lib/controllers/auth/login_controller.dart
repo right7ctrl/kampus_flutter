@@ -1,6 +1,7 @@
 import 'package:chat_app_flutter/core/constants.dart';
 import 'package:chat_app_flutter/core/init/network_manager.dart';
 import 'package:chat_app_flutter/core/init/storage_manager.dart';
+import 'package:chat_app_flutter/services/io_service.dart';
 import 'package:chat_app_flutter/views/home/home_navigator.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
+    kSocket = null;
     _formKey = GlobalKey<FormState>();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();

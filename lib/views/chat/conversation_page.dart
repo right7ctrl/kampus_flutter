@@ -1,15 +1,23 @@
-import 'package:chat_app_flutter/core/components/textfield/auth_textformfield.dart';
+import 'package:chat_app_flutter/controllers/chat/conversation_controller.dart';
+import 'package:chat_app_flutter/core/components/error/app_error_widget.dart';
+import 'package:chat_app_flutter/core/components/indicator/app_loading_widget.dart';
+import 'package:chat_app_flutter/core/functions.dart';
+import 'package:chat_app_flutter/models/chat/chat_detail_model.dart';
+import 'package:chat_app_flutter/models/chat/message_item_model.dart';
 import 'package:chat_app_flutter/models/user/user_item_model.dart';
+import 'package:chat_app_flutter/services/io_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ChatDetail extends StatelessWidget {
+class ConversationPage extends StatelessWidget {
   final UserItemModel user;
 
-  const ChatDetail({Key key, @required this.user}) : super(key: key);
+  const ConversationPage({Key key, @required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _c = Get.put(ConversationController());
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
@@ -36,47 +44,81 @@ class ChatDetail extends StatelessWidget {
         ),
         actions: [IconButton(icon: Icon(Icons.more_horiz), onPressed: () {})],
       ),
-      body: SafeArea(
-        maintainBottomViewPadding: true,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.all(8),
-                reverse: true,
-                child: Column(
-                  children: [
-                    MessageItem(
-                      notMe: true,
-                      message: 'qweqeqqwe',
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Row(
+      body: GetBuilder<ConversationController>(
+        initState: (_){
+          _c.getConversationHistory(user.sId);
+        },
+        id: '_page',
+        builder: (ct) {
+          if (ct.hasError)
+            return AppErrorWidget(
+              onRefresh: () {
+                ct.getConversationHistory(user.sId);
+              },
+              error: '',
+            );
+          if (ct.isLoading) return AppLoadingWidget();
+          return SafeArea(
+            maintainBottomViewPadding: true,
+            child: Column(
               children: <Widget>[
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: CupertinoTextField(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                      placeholder: 'Birşeyler yazın',
-                      decoration: BoxDecoration(
-                        border:
-                            Border.all(width: 1, color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(32),
-                      ),
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.all(8),
+                    reverse: true,
+                    child: GetBuilder<ConversationController>(
+                      id: '_conversation',
+                      builder: (ctrl) {
+                        return Column(
+                          children: ctrl.res.messages.map((e) {
+                            return MessageItem(
+                              message: e.message,
+                              notMe: e.senderId != kToken.sId,
+                            );
+                          }).toList(),
+                        );
+                      },
                     ),
                   ),
                 ),
-                IconButton(icon: Icon(Icons.send), onPressed: () {}),
-                SizedBox(width: 8),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: CupertinoTextField(
+                          controller: _c.controller,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 12),
+                          placeholder: 'Birşeyler yazın',
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1, color: Colors.grey.shade300),
+                            borderRadius: BorderRadius.circular(32),
+                          ),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                        icon: Icon(Icons.send),
+                        onPressed: () {
+                          final String msg = _c.controller.text;
+                          _c.addMessage(
+                            Messages(
+                              message: msg,
+                              senderId: kToken.sId,
+                            ),
+                          );
+                          IOService.sendMsg(user.sId, '$msg');
+                          _c.controller.clear();
+                        }),
+                    SizedBox(width: 8),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
