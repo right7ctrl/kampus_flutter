@@ -18,7 +18,7 @@ class ProfileEdit extends StatelessWidget {
         centerTitle: true,
       ),
       body: GetBuilder<ProfileEditController>(
-        id:"page",
+          id: "page",
           init: ProfileEditController(),
           dispose: (_) => ProfileEditController(),
           builder: (controller) {
@@ -60,19 +60,16 @@ class ProfileEdit extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(30, 12, 30, 12),
-                      child: GetX<ProfileEditController>(
-                        init: ProfileEditController(),
-                        builder: (a) => AppButton(
-                          title: 'Giriş Yap',
-                          onTap: () {
-                            a.editProfile();
-                          },
-                        ),
-                      child: AppButton(
-                        title: "Update",
-                      ),
-                    ),
+                        padding: EdgeInsets.fromLTRB(30, 12, 30, 12),
+                        child: GetX<ProfileEditController>(
+                          init: ProfileEditController(),
+                          builder: (a) => AppButton(
+                            title: 'Giriş Yap',
+                            onTap: () {
+                              a.editProfile();
+                            },
+                          ),
+                        )),
                   ],
                 ),
               );
