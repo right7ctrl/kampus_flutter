@@ -30,7 +30,8 @@ class ChatController extends GetxController {
             print(res.data);
         _response = ChatListModel.fromJson(res.data);
       });
-    } catch (e) {
+    } catch (e, s) {
+      print('$e, $s');
       _errorMessage = '$e';
       setError = true;
     }
