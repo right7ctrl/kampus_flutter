@@ -1,19 +1,23 @@
 class ChatListModel {
   int response;
-  Items items;
+  List<Items> items;
 
   ChatListModel({this.response, this.items});
 
   ChatListModel.fromJson(Map<String, dynamic> json) {
     response = json['response'];
-    items = json['items'] != null ? new Items.fromJson(json['items']) : null;
+    if (json['items'] != null) {
+      json['items'].forEach((f) {
+        items.add(new Items.fromJson(json['items']));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['response'] = this.response;
     if (this.items != null) {
-      data['items'] = this.items.toJson();
+      data['items'] = this.items.map((v) => v.toJson()).toList();
     }
     return data;
   }
