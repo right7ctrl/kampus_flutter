@@ -7,8 +7,9 @@ class ChatListModel {
   ChatListModel.fromJson(Map<String, dynamic> json) {
     response = json['response'];
     if (json['items'] != null) {
-      json['items'].forEach((f) {
-        items.add(new Items.fromJson(json['items']));
+      items = new List<Items>();
+      json['items'].forEach((v) {
+        items.add(new Items.fromJson(v));
       });
     }
   }
@@ -24,37 +25,41 @@ class ChatListModel {
 }
 
 class Items {
-  Sender sender;
-  Sender receiver;
+  String sId;
+  Receiver receiver;
+  Receiver sender;
 
-  Items({this.sender, this.receiver});
+  Items({this.sId, this.receiver, this.sender});
 
   Items.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    receiver = json['receiver'] != null
+        ? new Receiver.fromJson(json['receiver'])
+        : null;
     sender =
-        json['sender'] != null ? new Sender.fromJson(json['sender']) : null;
-    receiver =
-        json['receiver'] != null ? new Sender.fromJson(json['receiver']) : null;
+        json['sender'] != null ? new Receiver.fromJson(json['sender']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.sender != null) {
-      data['sender'] = this.sender.toJson();
-    }
+    data['_id'] = this.sId;
     if (this.receiver != null) {
       data['receiver'] = this.receiver.toJson();
+    }
+    if (this.sender != null) {
+      data['sender'] = this.sender.toJson();
     }
     return data;
   }
 }
 
-class Sender {
+class Receiver {
   String id;
   String name;
 
-  Sender({this.id, this.name});
+  Receiver({this.id, this.name});
 
-  Sender.fromJson(Map<String, dynamic> json) {
+  Receiver.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
   }

@@ -1,7 +1,10 @@
 import 'package:chat_app_flutter/controllers/chat/chat_controller.dart';
 import 'package:chat_app_flutter/core/components/error/app_error_widget.dart';
 import 'package:chat_app_flutter/core/components/indicator/app_loading_widget.dart';
+import 'package:chat_app_flutter/core/functions.dart';
 import 'package:chat_app_flutter/models/chat/chat_list_model.dart';
+import 'package:chat_app_flutter/models/user/user_item_model.dart';
+import 'package:chat_app_flutter/views/chat/conversation_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +15,9 @@ class ChatsPage extends StatelessWidget {
 
     return GetBuilder<ChatController>(
         id: '_page',
+        initState: (_) {
+          _c.getUserList();
+        },
         builder: (controller) {
           if (controller.hasError) {
             return AppErrorWidget(
@@ -25,13 +31,15 @@ class ChatsPage extends StatelessWidget {
               return AppLoadingWidget();
             } else {
               if (controller?.res?.items != null) {
-                /* return ListView.builder(
+                return ListView.builder(
                   itemBuilder: (context, index) {
-                    return ChatItem(item: controller.res.items);
+                    return ChatItem(
+                      item: controller.res.items.elementAt(index),
+                    );
                   },
                   shrinkWrap: true,
                   itemCount: controller?.res?.items?.length ?? 0,
-                ); */
+                );
               } else {
                 return Text('boş');
               }
@@ -42,15 +50,24 @@ class ChatsPage extends StatelessWidget {
 }
 
 class ChatItem extends StatelessWidget {
-  //final MessageItem item;
+  final Items item;
 
-  //const ChatItem({Key key, this.item}) : super(key: key);
+  const ChatItem({Key key, this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        //Get.to(ChatDetail());
+        Get.to(ConversationPage(
+          user: UserItemModel(
+            name: item.sender.id == kToken.sId
+                ? item.receiver.name
+                : item.sender.name,
+            sId: item.sender.id == kToken.sId
+                ? item.receiver.id
+                : item.sender.id,
+          ),
+        ));
       },
       leading: CircleAvatar(
         radius: 24,
@@ -65,7 +82,7 @@ class ChatItem extends StatelessWidget {
         ),
       ),
       title: Text(
-        '1231',
+        '${item.sender.id == kToken.sId ? item.receiver.name : item.sender.name}',
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),

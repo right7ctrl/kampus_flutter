@@ -1,5 +1,6 @@
 import 'package:chat_app_flutter/controllers/home/home_navigator_controller.dart';
 import 'package:chat_app_flutter/core/functions.dart';
+import 'package:chat_app_flutter/models/user/user_item_model.dart';
 import 'package:chat_app_flutter/views/home/pages/profile_page.dart';
 import 'package:chat_app_flutter/widgets/main_drawer.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,13 @@ class HomeNavigator extends GetView<HomeNavigatorController> {
               icon: Icon(Icons.person),
               onPressed: () {
                 Get.to(
-                  ProfilePage(profileId: kToken.sId),
+                  ProfilePage(user: UserItemModel(
+                    avatar: kToken.avatar,
+                    name: kToken.name,
+                    sId: kToken.sId,
+                    school: kToken.school,
+                    username: kToken.username
+                  )),
                 );
               }),
         ],

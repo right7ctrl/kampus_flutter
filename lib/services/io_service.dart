@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:chat_app_flutter/core/constants.dart';
 import 'package:chat_app_flutter/core/functions.dart';
 import 'package:chat_app_flutter/core/init/storage_manager.dart';
@@ -21,7 +23,7 @@ class IOService {
 
   void connectSocket() async {
     String token = StorageManager.getToken();
-    if (token != null && token != '') {
+    if (token != null && token != '' && kSocket == null) {
       disconnectSocket();
       _init();
 
@@ -44,6 +46,13 @@ class IOService {
     }
 
     print('Socket isconnected: ${kSocket?.connected}');
+  }
+
+  static void sendMsg(String userid, String message){
+    kSocket.emit('send_msg', jsonEncode({
+      "receiver_id": userid,
+      "message": message
+    }));
   }
 
   void disconnectSocket() async {

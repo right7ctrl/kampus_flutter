@@ -4,19 +4,31 @@ import 'package:chat_app_flutter/controllers/profile/profile_controller.dart';
 import 'package:chat_app_flutter/controllers/profile/profile_edit_controller.dart';
 import 'package:chat_app_flutter/core/components/error/app_error_widget.dart';
 import 'package:chat_app_flutter/core/components/indicator/app_loading_widget.dart';
+import 'package:chat_app_flutter/core/functions.dart';
+import 'package:chat_app_flutter/models/user/user_item_model.dart';
+import 'package:chat_app_flutter/views/chat/conversation_page.dart';
 import 'package:chat_app_flutter/views/profile_edit/profile_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProfilePage extends StatelessWidget {
-  final String profileId;
+  final UserItemModel user;
 
-  const ProfilePage({Key key, @required this.profileId}) : super(key: key);
+  const ProfilePage({Key key, this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final _c = Get.put(ProfileController());
     var height = Get.height;
     return Scaffold(
+      floatingActionButton: user.sId != kToken.sId
+          ? FloatingActionButton(
+              onPressed: () {
+                Get.to(ConversationPage(user: user));
+              },
+              backgroundColor: Theme.of(context).primaryColor,
+              child: Icon(Icons.message, color: Theme.of(context).accentColor),
+            )
+          : null,
       appBar: AppBar(
         title: Text('Profil'),
         actions: [
@@ -24,7 +36,6 @@ class ProfilePage extends StatelessWidget {
               icon: Icon(Icons.apps),
               onPressed: () {
                 Get.to(ProfileEdit(user: _c.res));
-                
               }),
         ],
       ),
@@ -35,7 +46,7 @@ class ProfilePage extends StatelessWidget {
               id: "page",
               init: ProfileController(),
               initState: (_) {
-                _c.getProfile(this.profileId);
+                _c.getProfile(this.user.sId);
               },
               dispose: (_) => ProfileController(),
               builder: (controller) {
@@ -43,7 +54,7 @@ class ProfilePage extends StatelessWidget {
                   return AppErrorWidget(
                     error: '${controller.errorMsg}',
                     onRefresh: () {
-                      controller.getProfile(profileId);
+                      controller.getProfile(this.user.sId);
                     },
                   );
                 } else if (controller.isLoading) {
