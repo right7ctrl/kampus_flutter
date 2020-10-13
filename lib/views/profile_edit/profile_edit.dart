@@ -69,6 +69,8 @@ class ProfileEdit extends StatelessWidget {
                             a.editProfile();
                           },
                         ),
+                      child: AppButton(
+                        title: "Update",
                       ),
                     ),
                   ],

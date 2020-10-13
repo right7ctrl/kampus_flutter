@@ -126,7 +126,7 @@ class ProfilePage extends StatelessWidget {
                                                     fontSize: 25,
                                                     fontWeight:
                                                         FontWeight.w400)),
-                                            AutoSizeText("Followers",
+                                            AutoSizeText("jhfgjyf",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Color(0xFFC7C7C7),

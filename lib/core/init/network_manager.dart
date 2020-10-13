@@ -57,7 +57,7 @@ class NetworkManager {
         } else {
           Map<String, dynamic> data = err?.response?.data is String
               ? jsonDecode(err.response.data)
-              : err.response.data;
+              : err?.response?.data;
           if (data != null && data.containsKey('message')) {
             Get.rawSnackbar(
               title: 'Hata! (${err?.response?.statusCode})',
