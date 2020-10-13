@@ -21,10 +21,11 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       smartManagement: SmartManagement.full,
       theme: ThemeData(
-          primaryColor: Colors.indigo,
-          primaryColorLight: Colors.indigo.shade200,
-          accentColor: Colors.white,
-          fontFamily: 'Lato'),
+        primaryColor: Colors.indigo,
+        primaryColorLight: Colors.indigo.shade200,
+        accentColor: Colors.white,
+        fontFamily: 'Lato'
+      ),
       home: SplashScreen(),
     );
   }
