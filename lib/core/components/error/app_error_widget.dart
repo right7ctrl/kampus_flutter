@@ -8,20 +8,22 @@ class AppErrorWidget extends StatelessWidget {
   const AppErrorWidget({Key key, this.error, this.onRefresh}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: onRefresh,
-        child: Container(
-          height: Get.height,
-          width: Get.width,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.refresh, size: 48),
-                Text('$error'),
-              ],
+    return Scaffold(
+          body: GestureDetector(
+          onTap: onRefresh,
+          child: Container(
+            height: Get.height,
+            width: Get.width,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.refresh, size: 48),
+                  Text('$error'),
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }
