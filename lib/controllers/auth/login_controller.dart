@@ -22,6 +22,7 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     kSocket = null;
+    IOService.disconnectSocket();
     _formKey = GlobalKey<FormState>();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();

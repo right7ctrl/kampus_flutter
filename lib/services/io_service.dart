@@ -23,14 +23,17 @@ class IOService {
 
   void connectSocket() async {
     String token = StorageManager.getToken();
-    if (token != null && token != '' && kSocket == null) {
       disconnectSocket();
+    if (token != null && token != '' && kSocket == null) {
       _init();
 
       try {
         kSocket.on('connect', (data) {
-          print(kToken.sId);
-          kSocket.emit('register', '${kToken.sId}');
+           Map<String, dynamic> _token = StorageManager.getParsedToken();
+
+print('${_token['_id']}');
+          kSocket.emit('register', '${_token['_id']}');
+
           kSocket.on('receive_msg', (data) {
             print('socket_receiver: $data');
             messageStream.sink.add(data);
@@ -49,13 +52,17 @@ class IOService {
   }
 
   static void sendMsg(String userid, String message){
+
+    Map<String, dynamic> t = StorageManager.getParsedToken();
+
     kSocket.emit('send_msg', jsonEncode({
       "receiver_id": userid,
-      "message": message
+      "message": message,
+      "sender_id": t['_id']
     }));
   }
 
-  void disconnectSocket() async {
+  static void disconnectSocket() async {
     try {
       kSocket?.close();
       kSocket = null;

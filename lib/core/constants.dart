@@ -1,5 +1,5 @@
-const API = "http://localhost:3005";
-const IO_URL = "http://localhost:3060";
+const API = "http://127.0.0.1:3005";
+const IO_URL = "http://127.0.0.1:3060";
 
 //Shared preferences keys
 const TOKEN_KEY = 'userToken';
