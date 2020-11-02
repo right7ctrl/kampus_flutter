@@ -25,6 +25,7 @@ class ProfilePage extends StatelessWidget {
     var height = Get.height;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       floatingActionButton: !isMe
           ? FloatingActionButton(
               onPressed: () {
@@ -135,162 +136,85 @@ class ProfilePage extends StatelessWidget {
                                         Divider(height: 48),
                                         Padding(
                                           padding: const EdgeInsets.all(12.0),
-                                          child: Material(
-                                            color: Colors.white,
-                                            elevation: 8,
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                            shadowColor: Colors.white70,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(12.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Okul',
-                                                    style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  Divider(height: 24),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
+                                          child: Column(
+                                            children: [
+                                              Material(
+                                                color: Colors.white,
+                                                elevation: 8,
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                shadowColor: Colors.white70,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      12.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
-                                                      Icon(Icons.school,
-                                                          color: Colors.grey),
-                                                      SizedBox(width: 12),
                                                       Text(
-                                                          'Erciyes Üniversitesi'),
-                                                    ],
-                                                  ),
-                                                  SizedBox(height: 8),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Icon(Icons.menu_book,
-                                                          color: Colors.grey),
-                                                      SizedBox(width: 12),
-                                                      Text(
+                                                        'Eğitim',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      Divider(height: 24),
+                                                      _schoolLine(Icons.school,
+                                                          '${i.school}'),
+                                                      SizedBox(height: 8),
+                                                      _schoolLine(
+                                                          Icons.menu_book,
                                                           'Bilgisayar Programcılığı'),
+                                                      SizedBox(height: 8),
+                                                      _schoolLine(
+                                                          Icons.trip_origin,
+                                                          '${i.grade}. Sınıf'),
                                                     ],
                                                   ),
-                                                  SizedBox(height: 8),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Icon(Icons.trip_origin,
-                                                          color: Colors.grey),
-                                                      SizedBox(width: 12),
-                                                      Text('3. Sınıf'),
-                                                    ],
-                                                  ),
-                                                ],
+                                                ),
                                               ),
-                                            ),
+                                              SizedBox(height: 24),
+                                              Material(
+                                                color: Colors.white,
+                                                elevation: 8,
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                shadowColor: Colors.white70,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      12.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        'Genel Bilgiler',
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      Divider(height: 24),
+                                                      _generalLine(
+                                                          Icons.favorite_border,
+                                                          'Konuşmayı Sevdiği Konular',
+                                                          '#sinema #müzik #tarih'),
+                                                      SizedBox(height: 12),
+                                                      _generalLine(
+                                                          Icons.favorite_border,
+                                                          'Konuşmayı Sevdiği Konular',
+                                                          '#sinema #müzik #tarih'),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-
-                                        /*    Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      AutoSizeText('${i.name}',
-                                          style: TextStyle(
-                                              fontSize: 28,
-                                              fontWeight: FontWeight.bold)),
-                                      Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: AutoSizeText(
-                                          "${i.school}",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.grey[600],
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            EdgeInsets.only(left: 40, right: 40),
-                                        child: AutoSizeText(
-                                          "I'm a positive person. I love to travel and discovery new place",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 35,
-                                            right: 35,
-                                            top: 12,
-                                            bottom: 20),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Column(
-                                              children: [
-                                                AutoSizeText("170",
-                                                    style: TextStyle(
-                                                        fontSize: 25,
-                                                        fontWeight:
-                                                            FontWeight.w400)),
-                                                AutoSizeText("jhfgjyf",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Color(0xFFC7C7C7),
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w400)),
-                                              ],
-                                            ),
-                                            verticalDivider,
-                                            Column(
-                                              children: [
-                                                AutoSizeText("104",
-                                                    style: TextStyle(
-                                                        fontSize: 25,
-                                                        fontWeight:
-                                                            FontWeight.w400)),
-                                                AutoSizeText("Following",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Color(0xFFC7C7C7),
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w400)),
-                                              ],
-                                            ),
-                                            verticalDivider,
-                                            Column(
-                                              children: [
-                                                AutoSizeText("1024",
-                                                    style: TextStyle(
-                                                        fontSize: 25,
-                                                        fontWeight:
-                                                            FontWeight.w400)),
-                                                AutoSizeText("Likes",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Color(0xFFC7C7C7),
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w400)),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                               */
                                       ],
                                     ),
                                   ),
@@ -332,6 +256,48 @@ class ProfilePage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _schoolLine(IconData icon, String val) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Icon(icon, color: Colors.grey),
+        SizedBox(width: 12),
+        Text('$val'),
+      ],
+    );
+  }
+
+  Widget _generalLine(IconData icon, String title, String value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          Icons.favorite,
+          color: Colors.grey,
+        ),
+        SizedBox(width: 12),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '$title:',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              '$value',
+              style: TextStyle(
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 

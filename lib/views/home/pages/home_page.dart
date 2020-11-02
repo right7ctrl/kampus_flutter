@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app_flutter/controllers/home/home_page_controller.dart';
 import 'package:chat_app_flutter/core/components/error/app_error_widget.dart';
 import 'package:chat_app_flutter/core/components/indicator/app_loading_widget.dart';
@@ -91,10 +92,16 @@ class UserCard extends StatelessWidget {
                       radius: 36,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(72),
-                        child: Image.network(
-                            'https://i.insider.com/5cdf0a1393a152734e0fc973?width=1021&format=jpeg',
-                            height: 72,
-                            fit: BoxFit.cover),
+                        child: CachedNetworkImage(
+                          imageUrl: '${user.avatar}',
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                          progressIndicatorBuilder: (context, url, progress) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.person),
+                        ),
                       ),
                     ),
                     SizedBox(height: 16),
@@ -131,12 +138,12 @@ class UserCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons.format_list_numbered,
+                              Icons.trip_origin,
                               size: 16,
                             ),
                             SizedBox(width: 8),
                             Text(
-                              '3/4',
+                              '${user.grade}. Sınıf',
                               textAlign: TextAlign.center,
                               style:
                                   TextStyle(fontSize: 14, color: Colors.grey),

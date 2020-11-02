@@ -1,4 +1,4 @@
-const API = "http://127.0.0.1:3005";
+const API = "http://192.168.10.71:3005";
 const IO_URL = "http://127.0.0.1:3060";
 
 //Shared preferences keys
