@@ -2,7 +2,7 @@ import 'package:chat_app_flutter/controllers/home/home_page_controller.dart';
 import 'package:chat_app_flutter/core/components/error/app_error_widget.dart';
 import 'package:chat_app_flutter/core/components/indicator/app_loading_widget.dart';
 import 'package:chat_app_flutter/models/user/user_item_model.dart';
-import 'package:chat_app_flutter/views/home/pages/profile_page.dart';
+import 'package:chat_app_flutter/views/profile/profile_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
