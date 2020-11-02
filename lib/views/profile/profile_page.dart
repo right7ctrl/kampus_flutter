@@ -7,7 +7,7 @@ import 'package:chat_app_flutter/core/components/indicator/app_loading_widget.da
 import 'package:chat_app_flutter/core/functions.dart';
 import 'package:chat_app_flutter/models/user/user_item_model.dart';
 import 'package:chat_app_flutter/views/chat/conversation_page.dart';
-import 'package:chat_app_flutter/views/profile_edit/profile_edit.dart';
+import 'package:chat_app_flutter/views/profile/profile_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
