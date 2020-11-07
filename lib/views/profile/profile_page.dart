@@ -66,6 +66,7 @@ class ProfilePage extends StatelessWidget {
 
                     //
                     return SingleChildScrollView(
+                      physics: ClampingScrollPhysics(),
                       child: Column(
                         children: [
                           Stack(

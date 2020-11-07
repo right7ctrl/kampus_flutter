@@ -79,18 +79,19 @@ class ChatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(item.toJson());
     return ListTile(
       onTap: () {
         Get.to(ConversationPage(
           user: UserItemModel(
-            name: item.sender.id == kToken.sId
-                ? item.receiver.name
-                : item.sender.name,
-            sId: item.sender.id == kToken.sId
-                ? item.receiver.id
-                : item.sender.id,
-          ),
+              name: item.sender.id == kToken.sId
+                  ? item.receiver.name
+                  : item.sender.name,
+              sId: item.sender.id == kToken.sId
+                  ? item.receiver.id
+                  : item.sender.id,
+              avatar: item.sender.id == kToken.sId
+                  ? item.receiver.avatar
+                  : item.sender.avatar),
         ));
       },
       leading: CircleAvatar(
