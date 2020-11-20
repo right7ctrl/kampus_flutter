@@ -3,7 +3,6 @@ import 'package:chat_app_flutter/core/init/network_manager.dart';
 import 'package:chat_app_flutter/core/init/storage_manager.dart';
 import 'package:chat_app_flutter/services/io_service.dart';
 import 'package:chat_app_flutter/views/home/home_navigator.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,17 +21,11 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     kSocket = null;
+    IOService.disconnectSocket();
     _formKey = GlobalKey<FormState>();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    // called after the widget is rendered on screen
-    //showIntroDialog();
-    super.onReady();
   }
 
   @override
@@ -66,10 +59,8 @@ class LoginController extends GetxController {
             );
           }
         });
-      } on DioError catch (e) {
-        print(e?.response?.data);
-      } catch (e) {
-        print(e);
+      } catch (e, s) {
+        print('$e, $s');
       }
       isLoading.value = false;
     }

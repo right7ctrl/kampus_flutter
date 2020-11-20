@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app_flutter/controllers/chat/conversation_controller.dart';
 import 'package:chat_app_flutter/core/components/error/app_error_widget.dart';
 import 'package:chat_app_flutter/core/components/indicator/app_loading_widget.dart';
@@ -6,6 +7,7 @@ import 'package:chat_app_flutter/models/chat/chat_detail_model.dart';
 import 'package:chat_app_flutter/models/chat/message_item_model.dart';
 import 'package:chat_app_flutter/models/user/user_item_model.dart';
 import 'package:chat_app_flutter/services/io_service.dart';
+import 'package:chat_app_flutter/views/profile/profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,13 +30,14 @@ class ConversationPage extends StatelessWidget {
               radius: 16,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.network(
-                  user?.avatar != null
-                      ? '${user.avatar}'
-                      : 'https://i.insider.com/5cdf0a1393a152734e0fc973?width=1021&format=jpeg',
-                  height: 32,
-                  width: 32,
+                child: CachedNetworkImage(
+                  imageUrl: '${user.avatar}',
+                  height: 100,
+                  width: 100,
                   fit: BoxFit.cover,
+                  progressIndicatorBuilder: (context, url, progress) =>
+                      CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.person),
                 ),
               ),
             ),
@@ -42,10 +45,14 @@ class ConversationPage extends StatelessWidget {
             Text('${user.name}'),
           ],
         ),
-        actions: [IconButton(icon: Icon(Icons.more_horiz), onPressed: () {})],
+        actions: [
+          IconButton(icon: Icon(Icons.more_horiz), onPressed: () {
+            Get.to(ProfilePage(user: user));
+          }),
+        ],
       ),
       body: GetBuilder<ConversationController>(
-        initState: (_){
+        initState: (_) {
           _c.getConversationHistory(user.sId);
         },
         id: '_page',

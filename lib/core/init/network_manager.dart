@@ -30,7 +30,7 @@ class NetworkManager {
         }));
   }
 
-  void errorMw(DioError err) {
+  DioError errorMw(DioError err) {
     print('e: $err');
     if (err?.response?.statusCode == 401) {
       if (Get.currentRoute != 'LoginPage') {
@@ -78,13 +78,11 @@ class NetworkManager {
             message: 'Bir hata oluştu ($e)');
       }
     }
+    return err;
   }
 
   RequestOptions reqMw(RequestOptions req) {
     String token = StorageManager.getToken();
-    if (kToken == null) {
-      kToken = TokenModel.fromJson(parseJwt(token));
-    }
     req.headers['Authorization'] = 'Bearer $token';
     return req;
   }

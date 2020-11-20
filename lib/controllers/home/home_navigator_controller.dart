@@ -1,7 +1,7 @@
-import 'package:chat_app_flutter/views/home/pages/chats_page.dart';
+import 'package:chat_app_flutter/views/chat/chats_page.dart';
 import 'package:chat_app_flutter/views/home/pages/home_page.dart';
 import 'package:chat_app_flutter/views/home/pages/notifications_page.dart';
-import 'package:chat_app_flutter/views/home/pages/profile_page.dart';
+import 'package:chat_app_flutter/views/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 

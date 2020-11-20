@@ -60,6 +60,7 @@ class RegisterController extends GetxController {
           }
         });
       } catch (e) {
+        print(e);
         Get.rawSnackbar(
           title: 'Hata!',
           message: 'Bilinmeyen bir hata oluştu \n$e',

@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:chat_app_flutter/core/constants.dart';
-import 'package:chat_app_flutter/core/functions.dart';
 import 'package:chat_app_flutter/core/init/storage_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
@@ -16,29 +14,28 @@ class IOService {
     print('__init');
     if (kSocket == null) {
       kSocket = IO.io(IO_URL, <String, dynamic>{
-        'transports': ['websocket', 'polling']
+        'transports': ['websocket', 'polling'],
+        'query': {'_id': StorageManager.getParsedToken()['_id']}
       });
     }
   }
 
   void connectSocket() async {
     String token = StorageManager.getToken();
+    disconnectSocket();
     if (token != null && token != '' && kSocket == null) {
-      disconnectSocket();
       _init();
 
       try {
         kSocket.on('connect', (data) {
-          print(kToken.sId);
-          kSocket.emit('register', '${kToken.sId}');
           kSocket.on('receive_msg', (data) {
             print('socket_receiver: $data');
             messageStream.sink.add(data);
           });
         });
         kSocket.connect();
-      } catch (e) {
-        print(e);
+      } catch (e, s) {
+        print('$e, $s');
       }
       print('Socket isconnec2ted: ${kSocket?.connected}');
     } else {
@@ -48,14 +45,24 @@ class IOService {
     print('Socket isconnected: ${kSocket?.connected}');
   }
 
-  static void sendMsg(String userid, String message){
-    kSocket.emit('send_msg', jsonEncode({
-      "receiver_id": userid,
-      "message": message
-    }));
+  static void sendMsg(String userid, String message) {
+    Map<String, dynamic> t = StorageManager.getParsedToken();
+
+    kSocket.emit(
+        'send_msg',
+        jsonEncode({
+          "receiver_id": userid,
+          "message": message,
+          "sender_id": t['_id']
+        }));
   }
 
-  void disconnectSocket() async {
+  static void emitSeen(String receiver_id) {
+    Map<String, dynamic> t = StorageManager.getParsedToken();
+    kSocket.emit('seen', {"receiver_id": receiver_id});
+  }
+
+  static void disconnectSocket() async {
     try {
       kSocket?.close();
       kSocket = null;

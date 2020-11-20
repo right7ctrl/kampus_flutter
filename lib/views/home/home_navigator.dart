@@ -1,7 +1,7 @@
 import 'package:chat_app_flutter/controllers/home/home_navigator_controller.dart';
 import 'package:chat_app_flutter/core/functions.dart';
 import 'package:chat_app_flutter/models/user/user_item_model.dart';
-import 'package:chat_app_flutter/views/home/pages/profile_page.dart';
+import 'package:chat_app_flutter/views/profile/profile_page.dart';
 import 'package:chat_app_flutter/widgets/main_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

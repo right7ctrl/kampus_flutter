@@ -4,8 +4,15 @@ class UserItemModel {
   String name;
   String username;
   String school;
+  int grade;
 
-  UserItemModel({this.avatar, this.sId, this.name, this.username, this.school});
+  UserItemModel(
+      {this.avatar,
+      this.sId,
+      this.name,
+      this.username,
+      this.school,
+      this.grade});
 
   UserItemModel.fromJson(Map<String, dynamic> json) {
     avatar = json['avatar'];
@@ -13,6 +20,7 @@ class UserItemModel {
     name = json['name'];
     username = json['username'];
     school = json['school'];
+    grade = json['grade'];
   }
 
   Map<String, dynamic> toJson() {
@@ -22,6 +30,7 @@ class UserItemModel {
     data['name'] = this.name;
     data['username'] = this.username;
     data['school'] = this.school;
+    data['grade'] = this.grade;
     return data;
   }
 }

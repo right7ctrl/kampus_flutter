@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chat_app_flutter/controllers/chat/chat_controller.dart';
+import 'package:chat_app_flutter/controllers/home/home_navigator_controller.dart';
 import 'package:chat_app_flutter/core/components/error/app_error_widget.dart';
 import 'package:chat_app_flutter/core/components/indicator/app_loading_widget.dart';
 import 'package:chat_app_flutter/core/functions.dart';
+import 'package:chat_app_flutter/core/init/storage_manager.dart';
 import 'package:chat_app_flutter/models/chat/chat_list_model.dart';
 import 'package:chat_app_flutter/models/user/user_item_model.dart';
 import 'package:chat_app_flutter/views/chat/conversation_page.dart';
@@ -30,7 +33,8 @@ class ChatsPage extends StatelessWidget {
             if (controller.isLoading) {
               return AppLoadingWidget();
             } else {
-              if (controller?.res?.items != null) {
+              if (controller?.res?.items != null &&
+                  controller?.res?.items?.length != 0) {
                 return ListView.builder(
                   itemBuilder: (context, index) {
                     return ChatItem(
@@ -41,7 +45,26 @@ class ChatsPage extends StatelessWidget {
                   itemCount: controller?.res?.items?.length ?? 0,
                 );
               } else {
-                return Text('boş');
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('Henüz bir sohbet geçmişi yok'),
+                    SizedBox(height: 12),
+                    OutlineButton(
+                      color: Theme.of(context).primaryColor,
+                      highlightColor: Colors.grey,
+                      borderSide: BorderSide(
+                          width: 1, color: Theme.of(context).primaryColor),
+                      onPressed: () {
+                        final ctrl = Get.put(HomeNavigatorController());
+                        ctrl.setIndex(0);
+                      },
+                      child: Text('Hemen başla!'),
+                    ),
+                  ],
+                ));
               }
             }
           }
@@ -60,29 +83,35 @@ class ChatItem extends StatelessWidget {
       onTap: () {
         Get.to(ConversationPage(
           user: UserItemModel(
-            name: item.sender.id == kToken.sId
-                ? item.receiver.name
-                : item.sender.name,
-            sId: item.sender.id == kToken.sId
-                ? item.receiver.id
-                : item.sender.id,
-          ),
+              name: item.sender.id == kToken.sId
+                  ? item.receiver.name
+                  : item.sender.name,
+              sId: item.sender.id == kToken.sId
+                  ? item.receiver.id
+                  : item.sender.id,
+              avatar: item.sender.id == kToken.sId
+                  ? item.receiver.avatar
+                  : item.sender.avatar),
         ));
       },
       leading: CircleAvatar(
         radius: 24,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(24),
-          child: Image.network(
-            'https://i.insider.com/5cdf0a1393a152734e0fc973?width=1021&format=jpeg',
+          child: CachedNetworkImage(
+            imageUrl:
+                '${item.sender.id == StorageManager.getParsedToken()['_id'] ? item.receiver.avatar : item.sender.avatar}',
             height: 64,
             width: 64,
             fit: BoxFit.cover,
+            progressIndicatorBuilder: (context, url, progress) =>
+                CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.person),
           ),
         ),
       ),
       title: Text(
-        '${item.sender.id == kToken.sId ? item.receiver.name : item.sender.name}',
+        '${item.sender.id == StorageManager.getParsedToken()['_id'] ? item.receiver.name : item.sender.name}',
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),

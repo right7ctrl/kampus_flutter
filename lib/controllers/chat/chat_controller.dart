@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:chat_app_flutter/core/constants.dart';
-import 'package:chat_app_flutter/core/functions.dart';
 import 'package:chat_app_flutter/core/init/network_manager.dart';
+import 'package:chat_app_flutter/core/init/storage_manager.dart';
 import 'package:chat_app_flutter/models/chat/chat_list_model.dart';
 import 'package:get/state_manager.dart';
 
@@ -21,9 +20,9 @@ class ChatController extends GetxController {
     setLoading = true;
     setError = false;
     try {
-      await NetworkManager.instance.dio
-          .post('$API/chat/list', data: {"id": kToken.sId}).then((res) {
-            print(jsonEncode(res.data));
+      await NetworkManager.instance.dio.post('$API/chat/list',
+          data: {"id": StorageManager.getParsedToken()['_id']}).then((res) {
+        print(jsonEncode(res.data));
         _response = ChatListModel.fromJson(res.data);
       });
     } catch (e, s) {

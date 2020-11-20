@@ -4,6 +4,7 @@ import 'package:chat_app_flutter/core/constants.dart';
 import 'package:chat_app_flutter/core/init/network_manager.dart';
 import 'package:chat_app_flutter/models/chat/chat_detail_model.dart';
 import 'package:chat_app_flutter/models/chat/message_item_model.dart';
+import 'package:chat_app_flutter/services/io_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/state_manager.dart';
 
@@ -21,8 +22,14 @@ class ConversationController extends GetxController {
   ChatDetailModel get res => _res;
   @override
   void onInit() {
+    print('qwe');
     _controller = TextEditingController();
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
   }
 
   @override
@@ -38,6 +45,7 @@ class ConversationController extends GetxController {
     try {
       await NetworkManager.instance.dio
           .post('$API/chat/detail', data: {"id": "$userid"}).then((res) {
+            IOService.emitSeen(userid);
         _res = ChatDetailModel.fromJson(res.data);
       });
     } catch (e, s) {

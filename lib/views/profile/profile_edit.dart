@@ -14,7 +14,7 @@ class ProfileEdit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Profile"),
+        title: Text("Profili Düzenle"),
         centerTitle: true,
       ),
       body: GetBuilder<ProfileEditController>(

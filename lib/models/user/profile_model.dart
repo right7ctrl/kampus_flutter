@@ -30,8 +30,11 @@ class Items {
   String username;
   String school;
   String name;
+  String bio;
+  int grade;
+  String department;
 
-  Items({this.avatar, this.sId, this.username, this.school, this.name});
+  Items({this.avatar, this.sId, this.username, this.school, this.name, this.bio, this.department, this.grade});
 
   Items.fromJson(Map<String, dynamic> json) {
     avatar = json['avatar'];
@@ -39,6 +42,9 @@ class Items {
     username = json['username'];
     school = json['school'];
     name = json['name'];
+    bio = json['bio'];
+    department = json['department'];
+    grade = json['grade'];
   }
 
   Map<String, dynamic> toJson() {
@@ -48,6 +54,9 @@ class Items {
     data['username'] = this.username;
     data['school'] = this.school;
     data['name'] = this.name;
+    data['bio'] = this.bio;
+    data['grade'] = this.grade;
+    data['department'] = this.department;
     return data;
   }
 }
